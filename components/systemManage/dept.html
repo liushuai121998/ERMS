@@ -1,0 +1,425 @@
+<link rel="stylesheet" href="./assets/lib/bootstrapValidator/bootstrapValidator.css">
+<link rel="stylesheet" href="./assets/lib/bootstrapTable/bootstrap-table.css">
+
+<style>
+    #myModal-dept .modal-content{
+        margin-top: 100px;
+        background: #fff;
+        border-radius:0;
+        color: #333;
+    }
+    #myModal-dept .modal-header {
+        background: #444444;
+        color: #fff;
+        text-align: center;
+        padding: 8px;
+    }
+    .table td, .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+        padding: 8px !important;
+        font-size: 14px;
+    }
+    .table>thead>tr>th>div {
+        padding: 0 !important;
+    }
+    .pagination-info {
+        display: none !important;
+    }
+    /*.page-list {*/
+    /*display: none !important;*/
+    /*}*/
+</style>
+<!-- 用户管理弹框 -->
+<div id="myModal-dept" class="modal fade"  tabindex="-1" role="dialog "  >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModal-dept-title">系统消息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="mydeptform" class="form-horizontal" role="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_name">*部门</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="dept" id="ds_name" autocomplete="off">
+
+                            </div>
+                            <div class="dept_error col-sm-4"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ds_description" class="col-sm-2 control-label">部门描述</label>
+                            <div class="col-sm-10">
+                                <textarea name="deptDes" id="ds_description" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <span id="f_msg" style="margin-right: 20px;"></span>
+                <input type="submit" class="btn  btn-primary saveBtn" form="mydeptform" value="保存">
+                <button type="button" class="btn  btn-primary"  onclick="docloseDept()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel-body">
+    <div id="toolbar" class="btn-group">
+        <button id="btn_add" type="button" class="btn btn-default btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+        </button>
+        <button id="btn_delete" type="button" class="btn btn-default btn-danger">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+        </button>
+    </div>
+    <table id="myTable">
+    </table>
+</div>
+
+<script src="./assets/lib/bootstrapValidator/bootstrapValidator.js"></script>
+<script src="./assets/lib/bootstrapTable/bootstrap-table.js"></script>
+<script src="./assets/lib/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+
+<script>
+    $(function () {
+
+        // 验证规则
+        $('#mydeptform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                dept: {
+                    container: '.dept_error',
+                    message: '部门验证失败',
+                    validators: {
+                        notEmpty: {
+                          message: '部门不能为空'
+                        },
+                        callback: function (value, validator) {
+
+                        }
+                    }
+                },
+                deptDes: {
+                    message: '部门描述验证失败',
+                    validators: {
+                        callback: function (value, validator) {
+
+                        }
+                    }
+                }
+            }
+        })
+
+
+        //部门数据
+        var deptMap = new Object();
+        getJson('/config/depts', function (data) {
+            if(data.c.flag === 1) {
+                var selectStr = " <option value='-1'>选择部门</option>";
+                //获取部门基础数据以后，加载表格数据 ---部门基础数据
+                for(var i=0;i<data.c.depts.length;i++)
+                {
+                    deptMap[data.c.depts[i].id] = data.c.depts[i].name;
+                    selectStr += "<option value='"+data.c.depts[i].id+"' data-value='"+data.c.depts[i].name+"'>"+data.c.depts[i].name+"</option>";
+                }
+                $("#ds_name").html(selectStr);
+                window.depts = data.c.depts
+                $('#myTable').bootstrapTable('load', depts)
+            } else {
+                window.depts = []
+            }
+        }, '')
+
+        // 新增
+        $("#btn_add").click(function(e){
+            $('#myModal-dept-title').text("新增部门");
+            $("#myModal-dept").modal({backdrop: false, show: true});
+            $('#myModal-dept .saveBtn').attr('data-flag', 'add')
+        });
+
+        // 删除
+        $("#btn_delete").click(function(e){
+            var a= $("#myTable").bootstrapTable('getSelections');   // getSelections 返回选中的行
+            console.log(a);
+            if(a.length <= 0){
+                showMsg("请勾选需要删除的数据...");
+            }else{
+                Ewin.confirm({message: '确定删除吗?'}).on(function (isConfirm) {
+                    if(isConfirm) {
+                        for(var i = 0;i<a.length;i++)
+                        {
+                            $.ajax({
+                                url: serviceUrl + "config/deptdelete",
+                                data: "{'id':"+a[i].id+"}" ,
+                                async: false,
+                                type: "post",
+                                success: function(dataJson) {
+                                    showMsg("删除成功");
+                                    $("#myTable").bootstrapTable('removeByUniqueId', a[i].id);
+                                },
+                                error: function() {
+                                    //hideLoading();
+                                }
+                            });
+                        }
+                    }
+                })
+            }
+        });
+
+        initShow()
+        // 表格数据
+        function initShow () {
+            var T_height = $(window).height() - 160;
+            $('#myTable').bootstrapTable({
+                //url: '/Home/GetDepartment',         //请求后台的URL（*）
+                //method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                locale:"zh-US" ,                    //表格汉化
+                //queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                paginationLoop: false,              // 	设置为 true 启用分页条无限循环的功能。
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 25,                       //每页的记录行数（*）
+                pageList: [25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: false,                 //设置为 true启用 全匹配搜索，否则为模糊搜索
+                showColumns: false,                  //是否显示所有的列
+                showRefresh: false,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: false,                //是否启用点击选中行
+                height: T_height,                        //行高，如果没有设置height属性，表格自动根据记录条数计算表格高度
+                uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    checkbox: true,
+                    width: '30'
+                }, {
+                    field: 'Number',
+                    title: '序号',
+                    formatter: function (value, row, index) {
+                        return index + 1;
+                    },
+                    width: '50'
+                }, {
+                    field: 'name',
+                    title: '部门名称',
+                    width: '20%'
+                }, {
+                    field: 'description',
+                    title: '部门描述'
+                }, {
+                    field: 'operate',
+                    title: '操作',
+                    align: 'center',
+                    width: '10%',
+                    formatter: operateFormatter
+                }]
+            });
+
+            $(window).resize(function () {
+                $('#myTable').bootstrapTable('resetView');
+            });
+
+        }
+        // 操作
+        function operateFormatter (value, row, index) {
+            return [
+                ' <span   data-id="'+row.id+'" data-index="'+index+'"  class="edit_btn glyphicon glyphicon-pencil" aria-hidden="true" style="cursor: pointer;"></span>',
+                ' <span   data-id="'+row.id+'" data-index="'+index+'"  class="delete_btn glyphicon glyphicon-remove" aria-hidden="true" style="cursor: pointer;"></span>'
+            ].join('');
+        }
+
+
+        var edit_dept_index = ""    // 编辑用户的index
+
+        // 修改   删除  重置密码
+        var manageOperate = {
+            init: function () {
+                this.bindEvent()
+            },
+            bindEvent: function () {
+                var that = this
+                $('body').on('click', '.edit_btn', this.update)  // 事件委托
+                $('body').on('click', '.delete_btn', function (ev) {
+                    Ewin.confirm({message: '确定删除吗?'}).on(function (isConfirm) {
+                        if(isConfirm) {
+                            that.deleteItem.call(ev.target)
+                        }
+                    })
+                })
+            },
+            update: function (ev) {
+
+                var editId = Number($(this).attr('data-id'))
+                for(var i = 0;i < depts.length;i++)
+                {
+                    if(depts[i].id === editId)
+                    {
+                        edit_dept_index = i
+                        $('#ds_name').val(depts[i].name)
+                        $('#ds_description').val(depts[i].description)
+                        break;
+                    }
+                }
+//
+
+                $('#myModal-dept-title').text("部门编辑");
+
+                $("#myModal-dept").modal({backdrop: false, show: true});
+
+                $('#myModal-dept .saveBtn').attr({
+                    'data-updateId': editId,
+                    'data-index': $(this).attr('data-index'),
+                    'data-flag': 'update'
+                })
+            },
+            deleteItem: function () {
+                // 根据用户的id删除
+                var delId = Number($(this).attr('data-id'))
+                var param = {id: delId}
+                getJson('config/deptdelete', function (data) {
+                    if(data.c.flag === 1) {
+
+                        // 删除表格中的数据
+                        $('#myTable').bootstrapTable('removeByUniqueId', delId)
+                        showMsg('删除成功')
+                    }
+                }, JSON.stringify(param))
+
+            }
+        }
+        manageOperate.init()
+
+        // 保存
+        $('.saveBtn').click(function (ev) {
+            // 进行表单验证
+            $('#mydeptform').data('bootstrapValidator').validate();
+
+            var temp = $(this).attr('data-flag')
+            // var flag = $(formName).data(“bootstrapValidator”).isValid();     // 获取当前表单验证的状态
+            var flag = $('#mydeptform').data("bootstrapValidator").isValid();
+
+            // 修改状态
+            var editId = Number($(this).attr('data-updateId'))
+            var editIndex = Number($(this).attr('data-index'))
+
+            if(flag) {
+                save[temp] && save[temp](editId, editIndex)
+            }
+        })
+
+        // 新增报存 修改报存
+        var save = {
+            getParam: function (editId) {
+                var param = {
+                    name: $('#ds_name').val(),
+                    description: $('#ds_description').val()
+                }
+
+                if(editId) {
+                    param.id = editId
+                }
+                return param
+            },
+            add: function () {
+                // 新增发送ajax请求
+                var param = this.getParam()
+                getJson('config/deptadd', function (data) {
+                    if(data.c.flag === 0 && data.c.errorCode === '005') {
+                        $('#f_msg').hide().html('<label class="label label-danger">用户名重复</label>').show(300);
+                        return
+                    }
+                    if(data.c.flag === 1) {
+                        $('#f_msg').hide()
+                        param.id = data.c.id
+
+                        // 添加数据到表格在现有数据之后。
+                        depts.push(param)
+
+                        $('#myTable').bootstrapTable('load', depts)
+
+                        $('#myModal-dept').modal('hide')
+
+                        // 清空数据
+                        clearData()
+
+                        // 重置表单验证规则
+                        $('#mydeptform').data("bootstrapValidator").resetForm();
+                    }
+                }, JSON.stringify(param))
+
+            },
+            update: function (editId, editIndex) {
+                // 修改成功发送ajax请求
+                var param = this.getParam(editId)
+                getJson('config/deptupdate', function (data) {
+                    console.log(data)
+                    if(data.c.flag === 1) {
+                        for(var i in param) {
+                            depts[edit_dept_index][i] = param[i]
+                        }
+                        // 更新指定的行
+                        $('#myTable').bootstrapTable('updateRow', {
+                            index: editIndex,
+                            row: param
+                        })
+
+                        $('#f_msg').hide()
+
+                        // 清空数据
+                        clearData()
+                        $('#myModal-dept').modal('hide')
+
+                        // 重置表单验证规则
+                        $('#mydeptform').data("bootstrapValidator").resetForm();
+
+                        showMsg('修改用户成功')
+                    } else {
+
+                        if(data.c.errorCode === '005') {
+                            $('#f_msg').hide().html('<label class="label label-danger">用户名重复</label>').show(300);
+                        }
+
+                    }
+                }, JSON.stringify(param))
+
+            }
+        }
+
+    })
+
+    function clearData () {
+        $('#f_msg').hide()
+        $('#ds_description').val('')
+        $('#ds_name').val('')
+    }
+    /**
+     * 取消
+     */
+    function docloseDept() {
+        clearData()
+        $('#myModal-dept').modal('hide');
+
+        // 重置表单验证规则
+        $('#mydeptform').data("bootstrapValidator").resetForm();
+    }
+
+
+</script>

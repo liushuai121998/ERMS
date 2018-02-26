@@ -1,0 +1,2 @@
+v1.0.0.170814_beta
+1.初始化导入chaangelog.txt文件

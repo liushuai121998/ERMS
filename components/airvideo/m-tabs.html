@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>监控选项卡模式</title>
+			<link rel="stylesheet" href="assets/lib/j-tabs/tabs-basic.css"> 
+		
+  <link href="assets/lib/video/video-js.css" rel="stylesheet" type="text/css">
+
+  <script src="assets/lib/video/video.js"></script>
+  <!-- Set the location of the flash SWF -->
+  <script>
+ 
+	
+	    videojs.options.flash.swf = 'assets/lib/video/video-js.swf';
+
+  </script>
+  <style>
+  	.example_video_1-dimensions
+  	{
+  		width: 100% !important;
+  		height: 100% !important;
+  	}
+  </style>
+	</head>
+	<body>
+		<div class="tabs-basic" id="resizeDiv">
+
+	        <ul>
+	            <li>
+	                <a class="tab-active" data-index="0" href="#">51</a>
+	            </li>
+	            <li>
+	                <a data-index="1" href="#">52</a>
+	            </li>
+	            <li>
+	                <a data-index="2" href="#">53</a>
+	            </li>
+	             <li>
+	                <a data-index="3" href="#">54</a>
+	            </li>
+	             <li>
+	                <a data-index="4" href="#">55</a>
+	            </li>
+	        </ul>
+	        
+	         <div   style="width: 100%;height:calc(100% - 41px) ">
+	         	<video name="sys-video" id="example_video_1" preload  class="video-js vjs-default-skin vjs-big-play-centered sys-video" controlBar=false preload="none" width="100%"  height="100%"> 
+	   
+					 </video>
+	         </div>
+
+					 <!--
+					 	data-setup='{ "html5" : { "nativeTextTracks" : false }, "autoplay": true }'
+	        <div class="tabs-content-placeholder">
+	        	 <source src="rtmp://192.168.7.52/live/livestream" type="rtmp/flv">
+
+	            <div class="tab-content-active">
+	              
+	            </div>
+
+	            <div>
+	              b
+	            </div>
+
+	            <div>
+	               c
+	            </div>
+
+	        </div>
+-->
+	    </div>
+	    
+	    	<script>
+	    		
+	    	
+	    	
+
+	    	//处理在tabs模式下视频被移动时，释放video重新创建新对象播放
+  			function dragLoadVideo()
+  			{
+  				//console.log('调用了tab模式下的移动');
+  				var myPlayer = videojs('example_video_1');
+					var oldurl = myPlayer.currentSrc(); 
+					videoDispose();		
+					//videojs.options.flash.swf = 'assets/lib/video/video-js.swf'; 
+					var myPlayer =  videojs("example_video_1");  //初始化视频
+					myPlayer.reset(); 				
+					myPlayer.src({
+						type : "rtmp/flv",  
+						src : oldurl  
+					});  
+			 		myPlayer.play();
+  			}
+ 
+		    videojs("example_video_1").ready(function(){
+			    	var myPlayer = videojs('example_video_1');	
+			    	console.log('播放器准备就绪');
+			        var myPlayer = this;
+			        //var u = "rtmp://192.168.7.52/live/livestream";
+			        var u = videoArr[0];
+			        console.log("播放"+u);
+			        //var u = "rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov";
+        			//videojs.options.flash.swf = 'assets/lib/video/video-js.swf'; 
+			        //var myPlayer =  videojs("example_video_1");  //初始化视频
+			        //myPlayer.reset();
+			        //myPlayer.src(u);  //重置video的src
+			         myPlayer.src({  
+			            type : "rtmp/flv",  
+			            src : u  
+			        }); 
+			        //myPlayer.load(u);  //使video重新加载
+ 					myPlayer.play();
+ 					
+ 					
+ 					myPlayer.on("error", function(){
+					    console.log("error");
+					});
+		    });
+		     
+            //tabs.on('click', function (e) {
+        	$(".main-split").on("click",'li a',function(e){   
+        		var index = $(this).data('index');
+        		console.log(videoArr[index]);
+        		 	//var u = "rtmp://192.168.7.52/live/livestream";
+        		 	var u =videoArr[index];
+        			//videojs.options.flash.swf = 'assets/lib/video/video-js.swf'; 
+			        var myPlayer =  videojs("example_video_1");  //初始化视频
+			        myPlayer.reset();
+			        //myPlayer.src(u);  //重置video的src
+			         myPlayer.src({  
+			            type : "rtmp/flv",  
+			            src : u  
+			        }); 
+			        //myPlayer.load(u);  //使video重新加载
+ 					myPlayer.play();
+        		
+				var widget = $('.tabs-basic');
+	
+	            var tabs = widget.find('ul a'),
+	           	content = widget.find('.tabs-content-placeholder > div');
+
+                e.preventDefault();
+
+                // Get the data-index attribute, and show the matching content div
+
+                
+				console.log("tab"+index);
+                tabs.removeClass('tab-active');
+                content.removeClass('tab-content-active');
+
+                $(this).addClass('tab-active');
+                content.eq(index).addClass('tab-content-active');
+				 
+            }); 
+ 
+ 
+    </script> 
+ <!--var player = videojs('example_video_1');
+ player.reset();
+		player.load();-->
+		
+	</body>
+</html>

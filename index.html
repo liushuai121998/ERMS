@@ -1,0 +1,419 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!--IE Compatibility modes-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--Mobile first-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>ERMS</title>
+     
+    <meta name="author" content="">
+    
+    <meta name="msapplication-TileColor" content="#5bc0de" />
+    <meta name="msapplication-TileImage" content="assets/img/metis-tile.png" />
+ 	
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.css">
+     
+    
+    <!-- Metis core stylesheet -->
+    <link rel="stylesheet" href="assets/css/main.css">
+      
+    <link rel="stylesheet" href="css/mystyle.css"  type="text/css">
+    <link rel="stylesheet" href="css/style-timer.css"  type="text/css">
+
+ <style>
+.mynav
+{
+	text-align: center !important;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus
+{
+	background-color: #5ab6df;
+}
+
+.modal-content {
+	position: relative;
+ background-color: #444;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	border: 1px solid #999;
+	border: 1px solid rgba(0, 0, 0, .2);
+	border-radius: 6px;
+	outline: 0;
+	-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+	box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+	color:#ffffff;
+}
+
+.mynav .dropdown .dropdown-menu {
+     background: #222222;
+ }
+.mynav .dropdown .dropdown-menu li a{
+    color: #fff;
+}
+.mynav .dropdown-menu > li > a:hover, .mynav .dropdown-menu > li > a:focus {
+    background: #080808;
+}
+.mynav .dropdown-menu > .active > a, .mynav .dropdown-menu > .active > a:hover, .mynav .dropdown-menu > .active > a:focus {
+    background: #5AB6DF;
+    color: #fff;
+}
+.login_name .dropdown-menu > li > a:hover, .mynav .dropdown-menu > li > a:focus {
+    background: #F9F9F9;
+    color: #000;
+}
+ </style>
+  </head>
+<!-- Modal-loading -->
+<div class="modal fade" id="myModal-loading" tabindex="-1" role="dialog"  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       
+      <div class="modal-body">
+ 		   <h4 class="modal-title" id="mymol-msg" style="text-align: center;">数据加载中,请稍等...</h4>
+      </div>
+       
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal-msg -->
+<div class="modal fade" id="myModal-msg" tabindex="-1" role="dialog"  >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h4 class="modal-title">系统消息</h4>
+      </div>
+      <div class="modal-body">
+          <h4 class="modal-title" id="myModalLabel" style="text-align: center;"></h4>
+
+      </div>
+      <div class="modal-footer"><!--<span style='color:#F5A833'>进程名称</span><br/>--></br/>
+      	
+        <button type="button" class="btn  btn-primary" data-dismiss="modal">确认关闭</button> 
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <body class="  ">
+            <div class="bg-dark dk" id="wrap">
+                <div id="top">
+                    <!-- .navbar -->
+                    <nav class="navbar navbar-inverse navbar-static-top">
+                        <div class="container-fluid">
+                     
+                            <header class="navbar-header" style="width: 200px;padding-left: 15px;">
+                    			<a href="#" class="navbar-brand"><img src="img/logo.png" alt="" height="40px" style="margin-top: 6px;"></a>
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <!--
+                                <a href="index.html" class="navbar-brand"><img src="assets/img/logo.png" alt=""></a>
+                                -->
+                    			<div style="text-align: center;height:50px;line-height: 50px;font-size: 16px;">南宁吴圩国际机场</div>
+                    			
+                    			
+								
+                            </header>
+                 
+                    
+                            <div class="topnav" style="position: relative;">
+                            	
+                                
+                                <div class="btn-group"  style="margin-left: 5px;">
+					              	<i  id="showZm_btn" class="panel-icon" style="cursor:pointer">&#xe60a;</i>
+                                </div>
+                                 
+                                <div class="btn-group login_name" style="margin-left: 20px;color: #ccc; cursor: pointer;">
+					              	<i  class="panel-icon">&#xe694;</i>
+					              	<span id="loginName"></span>
+                                    <ul class="dropdown-menu set_password" style="left: -40px;min-width: 100%;">
+                                        <li><a href="#">修改密码</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group" style="margin-left: 20px;color: #ccc;cursor:pointer" onclick="doOut()">
+					              	<i  id="showZm_btn" class="panel-icon" >&#xe80a;</i>退出
+                                </div>
+                            </div>
+                            
+                            <div class="topnav mytimer" style="margin: 8px;font-size: 24px;padding-right: 20px;color: #ccc;">
+                            	  
+                            	<!--时钟插件
+                            <div id="clock" class="dark"  >
+										<div class="display">  
+											<div class="digits"></div>
+										</div>
+									</div>
+                    		-->
+                     		</div>
+                    
+                    
+                            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    
+                                <!-- .nav -->
+                                <ul class="nav navbar-nav mynav">
+                                    <li class="active" data-page="components/main/index.html"><a href="#">态势监控</a></li>
+                                    <li data-page="components//pchecklist/index.html"><a href="#">应急指挥</a></li>
+                                    <li data-page="components/plan/index.html"><a href="#">预案管理</a></li>
+                                    <!--<li data-page="components/systemManage/index.html"><a href="#">系统管理</a></li>-->
+                                    <li class='dropdown' data-page='#'>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                                            系统管理<b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li data-page="components/systemManage/users.html"><a href="#">用户管理</a></li>
+                                            <li data-page="components/systemManage/dept.html"><a href="#">部门管理</a></li>
+                                        </ul>
+                                    </li>
+                                    <!--main  pchecklist  plan
+                                    <li data-page="components/map/index.html"><a href="#">室内地图</a></li>
+                                    -->
+                                     <!--
+                                    <li class='dropdown '>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            Form Elements <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="form-general.html">General</a></li>
+                                            <li><a href="form-validation.html">Validation</a></li>
+                                            <li><a href="form-wysiwyg.html">WYSIWYG</a></li>
+                                            <li><a href="form-wizard.html">Wizard &amp; File Upload</a></li>
+                                        </ul>
+                                    </li>
+                                    -->
+                                </ul>
+                                <!-- /.nav -->
+                            </div>
+                        </div>
+                        <!-- /.container-fluid -->
+                    </nav>
+                    <!-- /.navbar -->
+                        <header class="head">
+                                 
+                            <!-- /.main-bar -->
+                        </header>
+                        <!-- /.head -->
+                </div>
+                <!-- /#top -->
+                     
+                <div id="content">
+                    <div class="outer">
+                    	
+                        <div id="maindiv" class="inner bg-light lter"  >   
+                        </div>
+                       
+                        <!--
+                        <div id="myTabContent" class="tab-content"  >
+							<div class="tab-pane fade in active inner bg-light lter" id="main" style="height: 100%;">
+								 
+							</div>
+							<div class="tab-pane fade" id="pchecklist">
+							 
+							</div>
+						 <div class="tab-pane fade" id="plan">
+							 
+							</div>
+						</div>
+                        
+                        -->
+                        
+                        <!-- /.inner -->
+                    </div>
+                    <!-- /.outer -->
+                </div>
+                <!-- /#content -->
+ 
+                    <!-- /#right -->
+            </div>
+            <!-- /#wrap -->
+            <footer class="Footer bg-dark dker">
+                <p>Copyright 2017 &copy;   TOPSCIENTFIC SYSTEMS INC.京 ICP 备 12004142 号 </p>
+            </footer>
+            <!-- /#footer -->
+            <!-- #helpModal -->
+            <div id="helpModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                              
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- /#helpModal -->
+            <!--jQuery -->
+            <script src="assets/lib/jquery/jquery.js"></script>
+
+
+            <!--Bootstrap -->
+            <script src="assets/lib/bootstrap/js/bootstrap.js"></script>  
+            <script src="js/myutil.js"></script>
+ <script src="js/mytimer/moment.min.js"></script>
+ <script src="js/mytimer/script.js"></script>
+
+ <script>
+ 	
+ 	
+ 	
+ 	var loadPageId = "main";
+	//初始化
+	$(function(){
+		console.log(TempCache.getItem("username"));
+		//TempCache.setItem("username",'tt');
+		 
+		//未登陆状态
+		if(TempCache.getItem("username")==null||TempCache.getItem("username")==undefined)
+		{ 
+			//window.location.href="login.html";
+			//return;
+		}
+		console.log(TempCache.getItem("username"));
+		getJson("config/time",setServrTime,"");//同步服务器时间
+		$("#loginName").html(TempCache.getItem("username"));
+		//加载maindiv内容
+		getPage("components/main/index.html",setPage);
+		//计算中间maindiv位置大小
+		setpageheight();
+
+	});
+	
+	//设置框架高度
+	function setpageheight()
+	{ 
+		var mainheight = $(window).height()-145;		
+		$("#maindiv").height(mainheight);
+				//$("#myTabContent").height(mainheight);
+	}
+	
+    $('.mynav .dropdown').hover(function () {
+
+        $('.mynav .dropdown-menu').show()
+    }, function () {
+
+        $('.mynav .dropdown-menu').hide()
+    })
+
+    $('.login_name').click(function () {
+        $(this).find('.dropdown-menu').toggle()
+    })
+
+    // 修改密码
+    $('.set_password').click(function () {
+        getPage('./components/systemManage/editPassword.html', setPage)
+    })
+
+	 $(".mynav li").click(function(){  
+	 	//console.log($(this).attr("data-page"));
+        var url = $(this).attr("data-page")
+         if(url != "#" && url != undefined) {
+             getPage($(this).attr("data-page"),setPage);
+             $(".mynav li").removeClass("active");
+             $(this).addClass("active");
+         }
+		videoDispose(); 	
+
+    })  
+	
+ 
+	
+//	动态高度事件
+	    $(window).resize(function() { 
+			setpageheight();
+		}); 
+	
+
+
+ 	
+ 	function setPage(data)
+ 	{
+// 		if(loadPageId=="main")
+// 		{
+// 			$("#main").html(data);  
+// 		}else	if(loadPageId=="plan")
+//
+// 		{
+// 			$("#plan").html(data);  
+// 		}
+// 		return;
+ 		
+ 		
+ 		//console.log(data);
+ 		$("#maindiv").html(data); 
+ 		hideLoding();
+ 	}
+ 	
+ 	showLoding(); 
+ 	//showMsg("tesdfdfsdfsdfsd");
+ 	
+ 
+ 	
+ 	var mytimes ;
+ 	function setServrTime(data)
+ 	{
+ 		setInterval('doIntervalTimer()',1000);
+ 		serverDatenow = parseFloat(data.c.time);
+ 		console.log(data.c.time); 		
+ 		$(".mytimer").html(moment.unix(data.c.time/1000).format('HH:mm:ss'));
+ 	}
+ 	
+ 							  
+ 	//var serverTime = moment(1437925575663).format('HH:mm'); //2015-07-26 23:46:15
+ 
+ 	
+ 	function doIntervalTimer()
+ 	{
+ 		serverDatenow =serverDatenow+1000;
+ 		//serverDatenow = parseFloat(serverDatenow)+1000;
+ 		$(".mytimer").html(moment.unix(serverDatenow/1000).format('HH:mm:ss')); 
+ 	}
+ 	
+ 	
+ 	//退出系统
+ 	function doOut()
+ 	{ 
+ 		getJson('/sys/loginout',outbak,''); 			
+ 	}
+ 	function outbak(data)
+ 	{
+ 		if(data.c.flag==1)
+ 		{
+ 			//console.log('退出成功');
+ 			TempCache.removeItem("username");
+ 			window.location.href="login.html";  
+ 		}else
+ 		{
+ 			console.log('out失败');
+ 		}
+ 	}
+ 	
+ 
+ </script>
+
+ 
+        </body>
+
+</html>

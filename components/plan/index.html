@@ -1,0 +1,318 @@
+
+
+<link rel="stylesheet" href="css/c-plan.css">
+<link rel="stylesheet" href="assets/lib/treeview/bootstrap-treeview.css">
+
+<link rel="stylesheet" href="css/common.css">
+
+<!--<script src="assets/lib/treeview/bootstrap-treeview.js"></script>-->
+
+<script src="js/ls_plan/c-util.js"></script>
+<script src="js/ls_plan/c-plan.js"></script>
+<script src="js/ls_plan/c-manage.js"></script>
+<!--内容区-->
+<div class="main">
+    <div class="section_index">
+        <nav class="nav">
+            <a href="#" class="btn btn-primary plan_add" data-info="add" ><span class="glyphicon glyphicon-plus"></span>&nbsp;预案新增</a>
+        </nav>
+        <div id="collapse4" class="body">
+            <div id="dataTable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                <div class="row">
+
+                    <div class="select_show_len">
+                        <label>
+                            每页显示
+                            <select class="form-control input-sm select_entry">
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            行
+                        </label>
+                    </div>
+
+                    <div class="search_wrap">
+                        <label>
+                            <input type="search" class="form-control input-sm search" placeholder="预案名称搜索" aria-controls="dataTable">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-table">
+                        <div class="body_wrap">
+                            <div class="body_header_wrap">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="head_fixed" style="overflow: scroll">
+                                        <th style="width: 15%">预案名称</th>
+                                        <th style="width: calc(85% - 200px);">预案描述</th>
+                                        <th style="text-align: center; width: 200px;">预案调整</th>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="body_content_wrap">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="head_fixed" style="visibility: hidden">
+                                        <th style="width: 15%">预案名称</th>
+                                        <th style="width: calc(85% - 200px);">预案描述</th>
+                                        <th style="text-align: center; width: 200px;">预案调整</th>
+                                    </thead>
+                                    <tbody class="body_content">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--分页-->
+                    <div class="paging">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                            <ul class="pagination">
+                                <li class="paginate_button previous disabled" id="dataTable_previous"><a href="#" aria-controls="dataTable">上一页</a></li>
+
+                                <li class="paginate_button next" id="dataTable_next"><a href="#" aria-controls="dataTable">下一页</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section_manage">
+        <div class="panel panel-info section_manage_content">
+            <div class="panel-heading">
+                <span></span><span class="manage_title"></span>
+
+                <!--返回-->
+                <div class="return_icon">
+                    <!--<span class="glyphicon glyphicon-share-alt">-->
+                        <!---->
+                    <!--</span>-->
+                    <i class="ls-plan-icon">&#xe612;</i><span style="vertical-align: middle;">返回</span>
+                </div>
+            </div>
+            <div class="panel-body manage_content_wrap">
+                <div class="manage_content">
+                    <!--预案基本信息-->
+                    <header class="plan_basic_info">
+                        <div class="basic_title">
+                            预案基本信息
+                        </div>
+
+                        <div class="basic_content">
+
+                            <form class="form-horizontal">
+                                <div class="form-group" style="width: 100%; margin: 15px 0;">
+                                    <div class="clearfix">
+                                        <label for="evName" class="input_name_label"  style="width: 15%; float: left; text-align: center">预案名称:</label>
+                                        <div class="input_name">
+                                            <input type="text" class="form-control" id="evName" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div style="color: red; display: none; margin-left: 15%;" class="name_error">
+                                        <span class="glyphicon glyphicon-remove" style="margin-left: 15px;">预案名称重复</span>
+                                    </div>
+                                    <div style="color: red; display: none; margin-left: 15%;" class="require_name">
+                                        <span style="margin-left: 15px;">预案名称是必须的</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <!--<label class="col-xs-1">预案描述:</label>-->
+                                    <!--<div class="col-xs-11">-->
+                                        <!--<textarea class="form-control event_desc" rows="2"></textarea>-->
+                                    <!--</div>-->
+                                    <div class="clearfix">
+                                        <label class="input_name_label input_area_label" style="width: 15%; float: left; text-align: center">预案描述:</label>
+                                        <div class="input_name">
+                                            <textarea class="form-control event_desc" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+
+                    </header>
+
+
+                    <section class="main_content">
+                        <section class="dept_task_header">
+                            <div class="basic_title">
+                                部门措施信息
+                            </div>
+                        </section>
+                        <section class="dept_task_content">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="btn-group dept_manage_info" role="group">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span>添加部门</button>
+                                        <button type="button" class="btn btn-default delete_dept"><span class="glyphicon glyphicon-minus"></span>删除部门</button>
+                                        <button type="button" class="btn btn-default set_main_dept">置为主部门</button>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <!-- 部門相關信息-->
+                                    <!--<div class="depart_info col-sm-2">-->
+                                        <!--<div class="main_depart" style="margin-bottom: 25px;">-->
+                                            <!--<select class="col-sm-12 select_mainDepart">-->
+                                                <!--<option value="" disabled selected>请选择主部门</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+
+                                        <!--&lt;!&ndash;侧边&ndash;&gt;-->
+                                        <!--<div class="side">-->
+                                            <!--<div class="add_plan_depart dropdown" style="float: right; margin-top: 5px; margin-right: 5px; cursor: pointer">-->
+                                                <!--<span class="glyphicon glyphicon-plus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>-->
+                                                <!--&lt;!&ndash;dropdown&ndash;&gt;-->
+                                                <!--<ul class="dropdown-menu select_depart" aria-labelledby="dLabel">-->
+
+                                                <!--</ul>-->
+                                            <!--</div>-->
+
+                                            <!--<ul class="depart_content">-->
+
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="col-sm-2 depart_list">
+                                        <ul class="list-group depart_list_group">
+
+                                        </ul>
+
+                                        <div style="text-align: center">请添加部门</div>
+                                        <!---->
+                                        <div class="line_depart">
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <!--内容区-->
+                                    <div class="col-sm-10 form_content">
+                                        <div class="form-horizontal">
+                                            <div class="form-group check_list_info">
+                                                <div class="btn-group check_list_manage" role="group">
+                                                    <button type="button" class="btn btn-default add_task">新建任务</button>
+                                                    <!--<button type="button" class="btn btn-default update_task">修改任务</button>-->
+                                                    <button type="button" class="btn btn-warning delete_task">删除任务</button>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <!--<div class="panel panel-info check_list_wrap">-->
+                                                        <!--<div class="panel-heading">-->
+                                                            <!--<h3 class="panel-title">检查单</h3>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="panel-body check_list">-->
+                                                            <!--<input type="text" class="check_input" data-num="1">-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                    <ul class="list-group task_list">
+                                                        <!--<li class="list-group-item">-->
+                                                            <!--<input type="checkbox">-->
+                                                            <!--<input type="text">-->
+                                                        <!--</li>-->
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <div class="process_info">
+                                                        <span>措施流程图</span>
+                                                        <div class="upload_file_wrap">
+                                                            <!-- action="http://192.168.1.198:8080/ERMS/case/image"-->
+                                                            <form
+                                                                  method="post" enctype="multipart/form-data"
+                                                                  id="uploadForm">
+                                                                <input type="file" name="file"
+                                                                       accept="image/gif, image/jpeg, image/png, image/jpg"
+                                                                       class="upload_file" id="upload_file" value="选择文件上传">
+
+                                                                <label for="upload_file" class="upload_label">选择文件上传</label>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="not-pic" style="display: none; margin-top: 20px;">无流程图</div>
+                                                    <div class="panel panel-info flow_sheet_wrap">
+                                                        <div class="panel-heading">
+                                                            <h3 class="panel-title">流程图</h3>
+                                                        </div>
+                                                        <div class="panel-body flow_sheet">
+                                                            <img src="" alt="图片" class="upload_img">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">请添加部门</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!--表单组件-->
+                                            <form class="form-horizontal">
+                                                <div class="form-group add_depart_checkbox" style="margin: 0;">
+                                                    <!--<label class="checkbox-inline">-->
+                                                        <!--<input type="checkbox" value="option1"> 1-->
+                                                    <!--</label>-->
+                                                    <!--<label class="checkbox-inline">-->
+                                                        <!--<input type="checkbox" value="option1"> 1-->
+                                                    <!--</label>-->
+                                                    <!--<label class="checkbox-inline">-->
+                                                        <!--<input type="checkbox" value="option1"> 1-->
+                                                    <!--</label>-->
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="form-group" style="margin: 0; text-align: center">
+                                                <button type="button" class="btn btn-default cancel_add_plan_dept" data-dismiss="modal">取消</button>
+                                                <button type="button" class="btn btn-primary confirm_add_plan_dept" data-dismiss="modal">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+                    </section>
+                    <div class="submit_manage">
+                        <button type="button" class="btn btn-default cancel_btn">
+                            取消
+                        </button>
+                        <button type="button" class="btn btn-primary confirm_btn" data-info="add">
+                            添加
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+

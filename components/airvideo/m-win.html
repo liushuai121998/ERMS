@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>监控win窗口模式</title>
+		<link href="../../assets/lib/video/video-js.css" rel="stylesheet" type="text/css">
+		<script src="../../assets/lib/video/video.js"></script>
+		<link href="../../assets/lib/jqwindow/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<link href="../../assets/lib/jqwindow/jquery-lwd.css" rel="stylesheet" type="text/css" />
+		 
+		<style>
+			.video-js
+			{
+				width: 100%;
+				height: 100%;
+			}
+			.video-div
+			{
+				width: 100%;
+				height: 100%;;
+			}
+			.ui-dialog .ui-dialog-content
+			{
+				overflow:hidden !important; 
+				padding:0px !important;
+			}
+			
+			.ui-dialog
+			{
+				padding:0px !important;
+			}
+			
+			 
+			
+			.ui-corner-all
+			{ 
+				border-radius:0px;
+			}
+			
+			
+ 		</style>
+ 		  <script>
+ 
+	
+	   // videojs.options.flash.swf = './assets/lib/video/video-js.swf';
+
+  </script>
+	</head> 
+
+	<body>
+		<div id="windowContainer" style="width: 100%; height: 100%;">	</div>
+		 
+		    <!--data-maximizable="true" 最大化   data-positionX="30"   data-positionY="30"  data-height="100" data-width="200"-->
+		    <!--data-appendTo="#windowContainer" -->
+			<div id="div-51" class="window"  data-title="51"  data-resizable="true"  data-minimizable="true"   >
+				<div class="video-div">
+					<video name="sys-video" id="video-51" videoindex="0" preload class="video-js vjs-default-skin vjs-big-play-centered sys-video" controlBar=false preload="none" >
+
+					</video>
+				</div>
+			</div>
+			<div id="div-52" class="window"   data-title="52"  data-resizable="true"  data-minimizable="true">
+				<div class="video-div">
+					<video name="sys-video" id="video-52" videoindex="1" preload class="video-js vjs-default-skin vjs-big-play-centered sys-video" controlBar=false preload="none" >
+
+					</video>
+				</div>
+			</div>
+			<div id="div-53" class="window"   data-title="53" data-resizable="true"   data-minimizable="true">
+				<div class="video-div">
+					<video name="sys-video" id="video-53" videoindex="2" preload class="video-js vjs-default-skin vjs-big-play-centered sys-video" controlBar=false preload="none" >
+
+					</video>
+				</div>
+			</div>
+			<div id="div-54"  class="window"  data-title="54"  data-resizable="true"  data-minimizable="true">
+				<div class="video-div">
+					<video name="sys-video" id="video-54" videoindex="3" preload class="video-js vjs-default-skin vjs-big-play-centered sys-video" controlBar=false preload="none" >
+
+					</video>
+				</div>
+			</div>
+			<div id="div-55"  class="window"  data-title="55"  data-resizable="true"  data-minimizable="true">
+				<div class="video-div">
+					<video name="sys-video" id="video-55" videoindex="4" preload class="video-js vjs-default-skin vjs-big-play-centered sys-video" controlBar=false preload="none" >
+
+					</video>
+				</div>
+			</div>
+	
+			<script src="../../assets/lib/jqwindow/jquery-2.1.1.min.js" type="text/javascript"></script>
+			<script type="text/javascript" src="../../assets/lib/jqwindow/jquery-ui.min.js"></script>
+			<script type="text/javascript" src="../../assets/lib/jqwindow/jquery-lwd.js"></script>
+			<script>
+//				var videoArr=[
+//"rtmp://192.168.7.52/live/livestream",
+//"rtmp://172.25.1.179:1935/live/livestream52",
+//"rtmp://172.25.1.179:1935/live/livestream53",
+//"rtmp://172.25.1.179:1935/live/livestream54",
+//"rtmp://172.25.1.179:1935/live/livestream55"
+//];
+
+				var videoArr;
+ 
+				$(function(){ 
+					 videoArr = window.parent.getVideoUrl();//初始化从父页面获取需要播放的url,无需导入mytuil.js
+ 					
+ 					var allwidth = document.body.clientWidth;
+ 					var allheight = document.body.clientHeight-37*3;
+ 
+					$("#div-51").css({ width: allwidth*0.3, height: allheight/3 });
+					$("#div-51").parent().css({ left: "0px",top:"0px" });
+					
+					$("#div-52").css({ width: allwidth*0.3, height: allheight/3 });
+					$("#div-52").parent().css({ left: "0px",top:allheight/3+37 });
+					
+					$("#div-53").css({ width: allwidth*0.3, height: allheight/3 });
+					$("#div-53").parent().css({ left: "0px",top:allheight/3*2+37*2 });
+					
+					$("#div-54").css({ width: allwidth*0.7, height: allheight/2+18 });
+					$("#div-54").parent().css({ left: allwidth*0.3,top:"0px"});
+					
+					$("#div-55").css({ width: allwidth*0.7, height: allheight/2+18 });
+					$("#div-55").parent().css({ left: allwidth*0.3,top:allheight/2+53 });
+ 
+					
+				    var videos = document.getElementsByTagName('video'); 
+						    videojs.options.flash.swf = '../../assets/lib/video/video-js.swf';
+
+				    for(i=0; i<videos.length; i++) {
+				    	 
+				        var video = videos[i];
+				       
+				        if(video.className.indexOf('video-js') > -1) {
+				            videojs(video.id).ready(function(){
+				            	//console.log(this.tagAttributes["videoindex"]);
+				            	//console.log(videoArr[this.tagAttributes["videoindex"]]);
+				            	
+				            	 this.src({  
+						            type : "rtmp/flv",  
+						            src : videoArr[this.tagAttributes["videoindex"]]
+						        });  
+			 					this.play();
+				            });
+				        }
+
+				       }
+				    				        
+				        $(".ui-icon-closethick").on('click', function(event){ 
+							var closeVideoId = $(this).parent().parent().parent().parent().attr("aria-describedby").replace("div","video");			  
+							var myPlayer =  videojs(closeVideoId);  //获取视频对象
+				       		myPlayer.reset();//重置视频
+				       		myPlayer.dispose();//释放视频flash对象
+						});
+				});
+				 
+//				     		$("#windowContainer").on("click",'.ui-dialog-titlebar-close',function(e){  
+//				     			alert('close');
+//				     			    });
+
+//
+
+
+  
+			</script>
+	</body>
+
+</html>

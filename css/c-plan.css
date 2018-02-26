@@ -1,0 +1,513 @@
+.panel-info > .panel-heading
+{
+	background-color:#4e4e4e;
+	color: #ffffff;
+}
+
+.main {
+    height: 100%;
+}
+/*nav*/
+.main .nav, #dataTable_length  {
+    /*margin: 15px 15px 0;*/
+}
+.main .nav {
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    z-index: 200;
+}
+
+.panel-info
+{
+	border: #CCCCCC;	
+}
+.main .nav a {
+    /*margin-right: 30px;*/
+    cursor: pointer;
+    /*margin-left: 30px;*/
+}
+/*上传图片*/
+.upload_img {
+
+    width: 100%;
+    height: 500px;
+
+}
+.upload_file_wrap {
+    position: relative;
+}
+.upload_file {
+    position:absolute;
+    left:15px;
+    top:0;
+    /*opacity:0;*/
+    /*filter:alpha(opacity=0);*/
+    visibility: hidden;
+    width: 72px;
+    /*height: 34px;*/
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+/*label*/
+.upload_file_wrap {
+    float: right;
+}
+.upload_file_wrap .upload_label {
+    cursor: pointer;
+    white-space: nowrap;
+    max-width: 100px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-weight: normal;
+}
+.upload_file:hover {
+    cursor: pointer;
+}
+
+.col-sm-4, .col-sm-12{
+    padding: 0;
+}
+.pre_depart {
+    margin-top: 15px;
+}
+.pre_depart .select_depart {
+    height: 200px;
+}
+
+/*table的样式*/
+.row {
+    width: 100%;
+}
+
+.col-table{
+    margin-left: 15px;
+    margin-bottom: 15px;
+    padding-left: 13px;
+}
+.col-table .body_wrap {
+    /*height: 674px;*/
+    /*overflow: auto;*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+}
+.col-table .body_header_wrap {
+    overflow-y: scroll;
+    position: relative;
+    z-index: 223;
+}
+.col-table .body_content_wrap {
+    max-height: 99%;
+    overflow-y: scroll;
+    position: relative;
+    top: -45px;
+    /*border-bottom: 1px solid #ddd;*/
+}
+/*.col-table .body_content_wrap:after {*/
+    /*content: '';*/
+    /*display: block;*/
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*bottom: 0;*/
+    /*background: red;*/
+    /*width: 100%;*/
+    /*height: 1px;*/
+/*}*/
+#dataTable_info {
+    margin-left: 15px;
+}
+.table-bordered {
+    margin-bottom: 0;
+}
+
+/*分页paging*/
+.pagination {
+    margin: 0;
+}
+.paging {
+    /*float: right;*/
+    position: absolute;
+    bottom: 1%;
+    right: 12px;
+}
+/*显示列表的长度*/
+#dataTable_length {
+    height: 100%;
+    line-height: 50px;
+    float: right;
+}
+/*搜索框*/
+.dataTables_filter {
+    height: 100%;
+    margin-left: 30px;
+}
+.search_wrap {
+    height: 100%;
+    line-height: 60px;
+    float: right;
+}
+.search_wrap .search {
+    width: 290px;
+    margin-right: -30px;
+    margin-left: 30px;
+}
+.search_wrap label {
+    margin-bottom: 0;
+}
+
+.select_show_len {
+    float: right;
+    line-height: 60px;
+    margin-left: 20px;
+    width: 200px;
+    text-align: center;
+}
+/*搜索按钮的样式*/
+.search_wrap .glyphicon-search {
+    color: #337AB7;
+    float: right;
+    width: 30px;
+    height: 28px;
+    text-align: center;
+    line-height: 28px;
+    /*background: #C6C6C6;*/
+    margin-top: 15px;
+    cursor: pointer
+}
+
+/*添加预案部门*/
+.add_depart {
+    position: absolute;
+    right: -10px;
+    top: 10px;
+    font-size: 20px;
+    color: #337AB7;
+    cursor: pointer;
+}
+.select_depart_check {
+    display: none;
+}
+
+/*优化table的样式*/
+.table {
+    border-radius: 10px;
+}
+.table thead tr {
+    background: #4e4e4e;
+}
+.table thead tr th {
+    color: #fff;
+    font-family: '微软雅黑', '宋体';
+    font-size: 16px;
+    letter-spacing: 8px;
+}
+.table .body_content tr td {
+    color: #000;
+    font-size: 14px;
+    /*color: #BCC0C1;*/
+}
+.plan_adjust {
+    text-align: center;
+}
+.table .body_content td span {
+    color: #56A2CF;
+    padding: 0 6px;
+    cursor: pointer;
+}
+.table .body_content td span:hover {
+    color: #6B3252;
+}
+tr:nth-of-type(odd) {
+    /*background: #D9EDF7;*/
+    /*background: #DFF0D8;*/
+    background: #EAF3F5;
+}
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    /*border: 1px solid black;*/
+    padding: 10px !important;
+}
+
+/**/
+.select_depart_check {
+    /*border: 1px solid;*/
+}
+
+
+/**
+    manage.html 部分
+ */
+
+/*返回按鈕*/
+.return_icon {
+    float: right;
+    /*color: #00a1dc;*/
+    font-size: 16px;
+    margin-right: 20px;
+    cursor: pointer;
+    margin-top: -5px;
+}
+
+#tree, .depart_info{
+    padding: 0;
+}
+
+
+.depart_content {
+    list-style: none;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background: #bfa;
+}
+
+
+.manage_content_wrap {
+    /*padding-right: 8%;*/
+    /*padding-left: 8%;*/
+    padding: 0 50px;
+}
+/*检查单样式*/
+.check_list {
+    min-height: 212px;
+}
+.check_list input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    width: 95%;
+
+}
+
+
+/*流程图样式*/
+.flow_sheet_wrap, .flow_sheet {
+    width: 100%;
+    height: 500px;
+    padding: 0;
+}
+/*预案基本信息的样式*/
+.basic_title {
+    padding-bottom: 5px ;
+    border-bottom: 1px solid #5AB6DF;
+    color: #FF8547;
+    padding-top: 5px;
+    font-size: 16px; 
+}
+.basic_content {
+    /*width: 80%;*/
+    /*padding: 15px 0;*/
+    /*margin: 0 auto;*/
+}
+.basic_content .form-group {
+    margin: 0;
+}
+
+/*部门措施信息部分*/
+.dept_manage_info {
+    margin-left: calc(15% - 106px);
+}
+.dept_manage_info .btn {
+    padding: 12px;
+}
+.dept_manage_info .btn span {
+    color: #5AB6DF;
+    margin-right: 10px;
+}
+
+.check_list_manage {
+    margin-bottom: 15px;
+}
+.dept_task_content .form_content .check_list_info .check_list_manage .btn {
+    padding: 12px;
+    margin-right: 20px;
+    border-radius: 4px;
+}
+
+
+.section_manage {
+    height: 100%;
+    /*overflow: auto;*/
+}
+
+.section_manage_content {
+    height: 100%;
+}
+.manage_content_wrap {
+    height: calc(100% - 41px);
+    overflow: auto;
+}
+
+.check_list_info {
+    margin-bottom: 0;
+}
+/*措施流程图*/
+.process_info {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #DDDDDD;
+
+}
+.flow_sheet_wrap {
+    margin-top: 15px;
+}
+
+/*submit_manage*/
+
+.submit_manage {
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*bottom: 20px;*/
+    /*transform: translateX(-50%);*/
+    margin-bottom: 20px;
+    text-align: center;
+}
+.submit_manage .btn {
+    margin-right: 20px;
+    padding: 10px 20px;
+}
+
+
+/**
+任务
+ */
+.task_list input[type='text'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    width: 90%;
+}
+
+/*新增部门的模态框*/
+#myModal {
+    margin-top: 300px;
+}
+
+
+.input_label {
+    position: relative;
+    top: -4px;
+
+}
+.cb-container {
+    /*margin-left: 10%;*/
+}
+.cb-container + input[type=text] {
+    /*position: relative;*/
+    /*top: -4px;*/
+}
+
+
+/*样式的调整*/
+/*部门列表显示*/
+.depart_list {
+    position: absolute;
+    width: 15%;
+    /*margin-right: 10px;*/
+    height: 100%;
+    padding: 0;
+    cursor: pointer;
+    top: 0;
+}
+.depart_list_group{
+    position: absolute;
+    width: 100%;
+}
+.depart_list_group .list-group-item {
+    padding-left: 15%;
+    padding-right: 15%;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+.depart_list_group .list-group-item .input_label {
+    margin-left: 10%;
+}
+
+.form_content {
+    width: 85%;
+    /*float: right;*/
+    margin-left: 15%;
+    padding: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.dept_task_content .panel-body, .dept_task_content .panel-heading {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
+/*任务列表*/
+
+.task_list input[type=text] {
+    /*margin-left: 5%;*/
+    float: right;
+}
+
+/*任务列表的索引*/
+.task_list .task_num {
+    position: absolute;
+    left: 7%;
+    top: 10px;
+}
+
+/**/
+.manage_title {
+    margin-left: 10px;
+}
+
+/* 修改禁用的样式*/
+.task_list input:disabled {
+    background: #fff;
+    /*cursor: not-allowed;*/
+    cursor: move;
+}
+.task_list .list-group-item {
+    cursor: move;
+}
+
+.form-control[disabled] {
+    background: #fff;
+}
+
+/**/
+.dept_task_content .panel-body {
+    position: relative;
+}
+.line_depart {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: #ddd;
+}
+
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/*input_name*/
+.input_name {
+    width: 85%;
+    float: left;
+    padding: 0 15px;
+}
+
+.input_name_label {
+    width: 15%;
+    float: left;
+    text-align: center;
+    line-height: 34px;
+}
+.input_area_label {
+    line-height: 54px;
+}

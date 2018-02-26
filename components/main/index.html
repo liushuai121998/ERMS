@@ -1,0 +1,369 @@
+  
+    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.css">
+
+<link rel="stylesheet" href="css/c-main.css">
+
+
+  <script type="text/javascript" src="assets/lib/bootstrap-select/bootstrap-select.js"></script>
+  <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-select/bootstrap-select.css">
+  
+  
+    <link rel="stylesheet" type="text/css" href="assets/lib/jq-radio-check/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/lib/jq-radio-check/build.css">
+ 
+<!--
+    <div id='wrap' class="main-div">
+	<ul>
+		<li class="li1"></li>
+		<label class="lab1" id='lab1'>1</label>
+		<li class="li2"><a href="http://www.51xuediannao.com">懒人建站</a> http://www.51xuediannao.com 整理</li>
+		<label class="lab2">2</label>
+		<li class="li3"></li>
+	</ul>
+</div>
+-->
+ 
+<div class="main-split">
+	<div id="m-left" class="split split-horizontal"> 
+			<div id="left-1" class="split split-vertical div-context"   style="background: red;"  ondragover="allowDrop(event)" ondrop="drop(event,this)">
+				<div class="box dark panel-main">
+			        <header class="panel-top" draggable="true" ondragstart="drag(event, this.parentElement.parentElement)">
+			            <div class="panel-left-div"><i class="panel-left-icon">&#xe696;</i></div>
+			            <h5>进近态势</h5>
+			            <!-- .toolbar -->
+			            <div class="toolbar">
+			              <nav style="padding: 8px;">
+			                   <a href="javascript:;" class="panel-icon-bt full-box">
+			                      <i class="panel-icon">&#xe602;</i>
+			                  </a>
+			                  <a href="javascript:;" class="panel-icon-bt min-box">
+			                      <i class="panel-icon">&#xe667;</i>
+			                  </a>
+			              </nav>
+			            </div>            <!-- /.toolbar -->
+			        </header>
+			        <div id="div-1" class="body panel-bottom">
+			            <form class="form-horizontal" style="width: 100%;height: 100%;" >
+							 <iframe class="myiframe" id="mainiframep1" name="mainiframep1"  style="border:none;padding-top: 0px;top: 0px;width: 100%;height: 100%; background: #FFFFFF; " width="100%" height="100%"
+		          frameborder="none" scrolling="no"  ></iframe> 
+			           </form> 
+			       <div class="dragform" style="width: 100%;height: 100%;position: absolute;top: 40px;left:0px;display: none;"></div>
+
+			        </div>
+			   </div> 
+		</div>
+		 
+			<div id="left-2" class="split split-vertical div-context" style="background: yellow;" ondragover="allowDrop(event)" ondrop="drop(event,this)">
+				<div class="box dark panel-main">
+			        <header class="panel-top"    draggable="true" ondragstart="drag(event, this.parentElement.parentElement)">
+			            <div class="panel-left-div"><i class="panel-left-icon">&#xe66e;</i></div>
+			            <h5>跑道态势</h5>
+			             <div style="width: 40%;float:left;padding-top: 10px; "> 
+			             	<!--
+											<select id="video-select" class="selectpicker bla bla bli" multiple data-width="100%" > 
+											    <option selected>视频1</option>
+											    <option>视频2</option>
+											    </optgroup>
+										  </select>
+						  			
+						  			-->
+						  				<div class="radio radio-info radio-inline r-video">
+		                        <input type="radio" id="inlineRadio" value="0" name="my-r-video" checked>
+		                        <label for="inlineRadio">选项卡</label>
+		                    </div>
+		                    <div class="radio radio-info radio-inline r-video">
+		                        <input type="radio" id="inlineRadio1" value="1" name="my-r-video">
+		                        <label for="inlineRadio1">自由</label>
+		                    </div>
+						  			</div>
+						  
+			            <!-- .toolbar -->
+			            <div class="toolbar"> 	
+			            	
+			              <nav style="padding: 8px;">		
+			             
+			                  <a href="javascript:;" class="panel-icon-bt full-box">
+			                      <i class="panel-icon">&#xe602;</i>
+			                  </a>
+			                  <a href="javascript:;" class="panel-icon-bt min-box" >
+			                      <i class="panel-icon">&#xe667;</i>
+			                  </a>
+			              </nav>
+			            </div>            <!-- /.toolbar -->
+			        </header>
+			        <div id="div-1" class="body panel-bottom">
+			            <form class="form-horizontal" id="my-video-form" style="width: 100% !important;height: 100% !important;">
+							全景视频
+										
+			            </form>
+							<div class="dragform" style="width: 100%;height: 100%;position: absolute;top: 40px;left:0px;display: none;"></div>
+			        </div>
+			    </div>
+			</div>
+			
+			<div id="left-3" class="split split-vertical div-context"   style="background: red;"  ondragover="allowDrop(event)" ondrop="drop(event,this)">
+				<div class="box dark panel-main">
+			        <header class="panel-top" draggable="true" ondragstart="drag(event, this.parentElement.parentElement)">
+			            <div class="panel-left-div"><i class="panel-left-icon">&#xe680;</i></div>
+			            <h5>航站楼态势</h5>
+			            <!-- .toolbar -->
+			            <div class="toolbar">
+			              <nav style="padding: 8px;">
+			                   <a href="javascript:;" class="panel-icon-bt full-box">
+			                      <i class="panel-icon">&#xe602;</i>
+			                  </a>
+			                  <a href="javascript:;" class="panel-icon-bt min-box">
+			                      <i class="panel-icon">&#xe667;</i>
+			                  </a>
+			              </nav>
+			            </div>            <!-- /.toolbar -->
+			        </header>
+			        <div id="div-3" class="body panel-bottom">
+			            <form class="form-horizontal" style="width: 100%;height: 100%;"  >
+							 <iframe class="myiframe" id="mainiframep2" name="mainiframep2"  style="border:none;padding-top: 0px;top: 0px;width: 100%;height: 100%; background: #FFFFFF; " width="100%" height="100%"
+		          frameborder="none" scrolling="no"  ></iframe> 
+			            </form>
+			       <div class="dragform" style="width: 100%;height: 100%;position: absolute;top: 40px;left:0px;display: none;"></div>
+
+			        </div>
+			   </div> 
+		</div>
+		 
+	</div>
+	<div id="m-right" class="split split-horizontal"     >
+		<div id="right-1" class="div-context " style="background: blue;" ondragover="allowDrop(event)" ondrop="drop(event,this)">
+			<div class="box dark panel-main ">
+			        <header class="panel-top"  draggable="true" ondragstart="drag(event, this.parentElement.parentElement)">
+			             <div class="panel-left-div"><i class="panel-left-icon">&#xe68c;</i></div>
+			            <h5>站坪态势</h5>
+			            <!-- .toolbar -->
+			            <div class="toolbar">
+			              <nav style="padding: 8px;">
+			                  <a href="javascript:;" class="panel-icon-bt full-box">
+			                      <i class="panel-icon">&#xe602;</i>
+			                  </a>
+			                  <a href="javascript:;" class="panel-icon-bt min-box">
+			                      <i class="panel-icon">&#xe667;</i>
+			                  </a>
+			              </nav>
+			            </div>            <!-- /.toolbar -->
+			        </header>
+			        <div id="div-1" class="body panel-bottom ">
+			        	
+			            <form class="form-horizontal" style="width: 100%;height: 100%;"  >
+							 <iframe class="myiframe" id="mainiframep3" name="mainiframep3"  style="border:none;padding-top: 0px;top: 0px;width: 100%;height: 100%; background: #FFFFFF; " width="100%" height="100%"
+		           frameborder="none" scrolling="no"  ></iframe> 
+			            </form>
+			            <div class="dragform" style="width: 100%;height: 100%;position: absolute !important;top: 40px;left:0px;display: none;"></div>
+			        </div>
+			    </div>
+		</div>
+	</div>
+</div>
+<script src="js/split.min.js"></script>
+
+<script>
+ 
+ //window.onbeforeunload = function(event) { return confirm("确定离开此页面吗？"); }
+	//instance.getSizes(); 获取比例数组 
+	//allInstance.collapse(0); 隐藏第一个组件
+	var allInstance = Split(['#m-left', '#m-right'], {
+		sizes: [30, 70],minSize: [0, 0]
+	});
+	
+ 
+
+	//Split(['#m-left', '#m-right']);
+
+	var leftInstance = Split(['#left-1', '#left-2','#left-3'], {
+		direction: 'vertical',sizes: [33,33,34], minSize: [0, 0, 0]
+	});
+
+	function allowDrop(ev) { 
+		ev.preventDefault(); 
+	}
+
+	var srcdiv = null;
+
+	function drag(ev, divdom) {
+		//$("iframe").css({position:"relative","z-index":-1}); 		 
+		
+		//inline
+			//	$(".dragform").css({position:"absolute","z-index":1000,"top":"0px"}); 		 
+
+		$(".dragform").css({display:""});		
+		srcdiv = divdom;
+		ev.dataTransfer.setData("text/html", divdom.innerHTML);
+	}
+
+	function drop(ev, divdom) {
+		ev.preventDefault();
+		if(srcdiv != divdom) {
+			srcdiv.innerHTML = divdom.innerHTML;
+			//divdom.empty();
+			divdom.innerHTML = ev.dataTransfer.getData("text/html");			
+			
+			//移动之后判断视频窗口是否被交换,如果交换，需要释放视频对象重载当前视频
+			if($("#"+divdom.id).find("#my-video-form").length||$("#"+srcdiv.id).find("#my-video-form").length)
+			{				
+				//判断当前是否是窗口模式
+				if($selectedvalue==0)
+				{
+					dragLoadVideo();//该函数在m-tabs.html页面中
+				}
+			}
+		}
+		//$("iframe").css({position:"none","z-index":999});
+					//	$(".dragform").css({position:"relative","z-index":-1,"bottom":"-1px"}); 		 
+		$(".dragform").css({display:"none"}); 	 
+
+	}
+	
+	function reloadAbleJSFn(id,newJS)
+{
+var oldjs = null;
+var t = null;
+var oldjs = document.getElementById(id);
+if(oldjs) oldjs.parentNode.removeChild(oldjs);
+var scriptObj = document.createElement("script");
+scriptObj.src = newJS;
+scriptObj.type = "text/javascript";
+scriptObj.id   = id;
+document.getElementsByTagName("head")[0].appendChild(scriptObj);
+}
+	
+	  function loadJs(file) {
+            var head = $("head").remove("script[role='reload']");
+            $("<scri" + "pt>" + "</scr" + "ipt>").attr({ role: 'reload', src: file, type: 'text/javascript' }).appendTo(head);
+}
+	  
+	//窗口全屏 
+		$(".main-split").on("click",'.full-box',function(e){   
+	    if (window.screenfull !== undefined && screenfull.enabled) {  
+        var $toggledPanel = $(this).parents('.box')[0]; 
+        if(!$(this).parents('.box').hasClass('full-screen-box'))
+        {
+        	 $(this).parents('.box').toggleClass('full-screen-box');
+        }   
+      	screenfull.toggle($toggledPanel);
+      	//e.preventDefault(); 
+       // $(this).parents('.box').children('.body').toggleClass('full-screen-box');
+        //$(this).children('i').toggleClass('fa-compress');
+        e.preventDefault(); 
+    } else {
+      $('.full-box').addClass('hidden');
+    }
+});
+
+	
+	//缩小功能
+		$(".main-split").on("click",'.min-box',function(e){   
+	    //console.log($(this).parents('.box').parent()[0].id);
+	    var tempId = $(this).parents('.box').parent()[0].id;
+	    if(tempId == "left-1")
+	    {
+	    		leftInstance.collapse(0);
+	    }else if(tempId == "left-2")
+	    {
+	    		leftInstance.collapse(1);
+	    }else if(tempId == "left-3")
+	    {
+	    		leftInstance.collapse(2);
+	    }else
+	    {
+	    		allInstance.collapse(1);
+	    }
+});
+
+               
+// $('.selectpicker').selectpicker({
+//              'selectedText': 'cat'
+//          });
+            
+            
+           // $("#shandler").html(selectStr);
+				        		
+				        		//设置样式和一次显示条数 --暂时不用
+				        		//$('.selectpicker').selectpicker(); 
+ 
+//
+// 
+//         $('.r-video').on('click',function(e){
+// 
+//         e.preventDefault();
+//      $(this).attr('checked',true);
+//      alert($(this).attr('checked'));
+//  });
+//  
+//      
+    //$(".r-video").change(function(){
+    	 var $selectedvalue = 0;
+    		$(".main-split").on("change",'.r-video',function(e){  
+        $selectedvalue = $("input[name='my-r-video']:checked").val();
+      	//alert($selectedvalue);
+				//console.log($("input:radio[name='my-r-video']"));
+				
+       //$("input[name='radioInline']").prop("checked",false);
+            //$("input:radio[name='my-r-video']").attr("checked",false);
+      videoDispose();
+      if($selectedvalue ==0){
+             //$("#inlineRadio").attr("checked",true);
+             //$("#inlineRadio1").attr("checked",false);
+             		getPage("components/airvideo/m-tabs.html",setVPage); 
+
+        }else{
+        	             		//getPage("components/airvideo/m-win.html",setVPage);
+        	 	$("#my-video-form").empty();	
+						$("#my-video-form").html(' <iframe  src="components/airvideo/m-win.html" class="myiframe" id="videoframe" name="videoframe"  style="border:none;padding-top: 0px;top: 0px;width: 100%;height: 100%; background: #FFFFFF; " width="100%" height="100%" frameborder="none" scrolling="no"  ></iframe> ');
+        	   //$("#inlineRadio").attr("checked",false);
+						//$("#inlineRadio1").attr("checked",true);
+        }
+        
+        //$("input:radio[name='radioInline']").eq(0).attr("checked",true);
+        $("input:radio[name='my-r-video']").eq($selectedvalue).attr("checked", true);
+        
+        
+                //$("input:radio[name='dialCheckResult']").eq(0).attr("checked",true);
+        //console.log( $("input[name='radioInline']").eq($selectedvalue));
+
+    });
+    
+//  function videoloadend()
+//  { 
+//			//$("#videoframe").window.setUrl(videoArr);
+//			document.getElementById("videoframe").contentWindow.setUrl(videoArr);
+//  }
+//  
+    function getVideoUrl()
+    {
+    	return videoArr;
+    }
+   
+    
+    
+    	//初始化
+	$(function(){
+		//加载maindiv内容
+		getPage("components/airvideo/m-tabs.html",setVPage);
+		
+								 $("#mainiframep1").attr("src",osasUrl);
+								  $("#mainiframep2").attr("src",flightAirUrl);
+								   $("#mainiframep3").attr("src",rtmonitoringUrl);
+
+		//$("#videoframe").attr("src","components/airvideo/m-tabs.html");
+	}); 
+ 	function setVPage(data)
+ 	{
+ 		//console.log(data);
+ 		$("#my-video-form").html(data);
+ 		//$("#my-video-form").load("components/airvideo/m-tabs.html");
+ 		hideLoding();
+ 	}
+ 	 
+	
+</script>
+    <script src="assets/lib/screenfull/screenfull.js"></script> 
+    <!--
+            <script src="assets/js/core.js"></script> 
+            -->
+            

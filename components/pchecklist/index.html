@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>预案检查单</title>
+		<link rel="stylesheet" href="css/c-manage.css">
+		<link rel="stylesheet" href="css/common.css">
+
+		<link href="./assets/lib/jqwindow/jquery-ui.css" rel="stylesheet" type="text/css">
+		<link href="./assets/lib/jqwindow/jquery-lwd.css" rel="stylesheet" type="text/css">
+
+		<style>
+			/*<!--ui-dialog ui-widget ui-widget-content ui-corner-all ui-front window-dialog ui-draggable ui-resizable-->*/
+			/*!*ui-dialog ui-widget ui-widget-content ui-corner-all ui-front window-dialog ui-draggable ui-resizable lwd-window-focus*!*/
+			.ui-dialog .ui-dialog-content
+			{
+				overflow:hidden !important;
+				padding:0 !important;
+			}
+
+			.ui-dialog
+			{
+				padding:0 !important;
+
+			}
+
+
+			.ui-corner-all
+			{
+				/*border-radius:5px !important;*/
+				background: #4E4E4E !important;
+				/*border: 1px solid #ddd !important;*/
+			}
+			.lwd-window-focus .ui-corner-all {
+				border-radius:0 !important;
+				background: #4E4E4E !important;
+				/*border: 1px solid #ddd !important;*/
+			}
+
+			.ui-dialog-title {
+				color: #fff;
+			}
+
+			.ui-dialog-titlebar {
+				border-radius: 0 !important;
+			}
+
+			.ui-button {
+				border-radius: 0 !important;
+			}
+
+
+		</style>
+	</head>
+	<body>
+
+		<!-- Modal -->
+		<div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 20%;">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+					</div>
+					<div class="modal-body">
+						应急预案任务未执行完毕，确定提交嘛？
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary confirm_success">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="windowContainer" style="position: absolute; width: 100%; height: 100%;">
+
+		</div>
+		<div class="window"
+			 data-appendTo="#windowContainer"
+
+			 data-dialogClass="window-dialog"
+			 data-draggable="true"
+			 data-height="350"
+			 data-hide="false"
+
+			 data-minHeight="320"
+			 data-minWidth="480"
+
+			 data-modal="false"
+			 data-positionX="100"
+			 data-positionY="100"
+			 data-resizable="true"
+			 data-show="true"
+			 data-width="400"
+			 data-title="流程图"
+		id="myDialog">
+
+			<img src="" alt="" class="show_lg_pic">
+
+		</div>
+
+		<div class="plan_action" style="position: relative; z-index: 100;height: 100%;">
+			<div class="tab_header">
+				<!-- 预案执行历史-->
+				<div class="history_btn">
+					<!--<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt" style="color: #56A2CF;"></span>&nbsp;&nbsp;预案执行历史</button>-->
+					<button type="button" class="btn btn-default my-back-btn"><i class="ls-plan-icon"  >&#xe789;</i><span class="icon_plan_title">预案执行历史</span></button>
+				</div>
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs plan_nav" role="tablist">
+					<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">无</a></li>
+					<!--<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">预案执行2</a></li>-->
+					<!--<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">预案执行3</a></li>-->
+					<!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">预案执行4</a></li>-->
+				</ul>
+			</div>
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="home">
+					<div class="plan_header">
+						<div class="panel panel-default col-sm-2">
+							<div class="panel-body plan_loading_title">
+								预案状态: <span class="plan_state">&nbsp;无</span>
+							</div>
+							<div class="action_time_wrap">
+								<div class="panel-body action_time">
+									启动时长: 无
+								</div>
+							</div>
+
+						</div>
+						<div class="col-sm-10 basic_info">
+							<div class="plan_name">
+								预案名称: 无
+							</div>
+							<div class="plan_desc">
+								预案描述: 无
+							</div>
+						</div>
+					</div>
+					<div class="plan_content">
+						<div class="plan_list_title">
+							应急预案列表 <button class="btn btn-info shrink_item">折叠</button>
+						</div>
+						<div></div>
+					</div>
+
+					<!---->
+					<div class="panel-group plan_lists_wrap" id="accordion" role="tablist" aria-multiselectable="true">
+						<div class="panel plan_list panel-default plan_list_item">
+							<div class="panel-heading" role="tab" id="headingOne">
+								<!--<span class="glyphicon glyphicon-plane main_depart_flag"></span>-->
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse" data-parent="#accordion" href="" aria-expanded="true" aria-controls="collapseOne" style="vertical-align: middle; margin-right: 10px;">
+										<i class="ls-plan-icon">&#xe628;</i><span class="dept_name" style=" color: #337ab7; vertical-align: middle;"></span>
+									</a>
+
+									<span class="glyphicon glyphicon-picture" style="float: right; vertical-align: bottom; margin-top: 3px;"></span>
+								</h4>
+
+
+							</div>
+							<div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body" style="padding: 0;">
+									<ul class="list-group plan_task" style="margin-bottom: 0;">
+
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--完成按钮-->
+					<div class="success_btn">
+						<button type="button" class="btn btn-success">完成</button>
+						<!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#success">-->
+							<!--Launch demo modal-->
+						<!--</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="plan_history"  style="display: none;position: relative; z-index: 100;">
+			<div class="panel panel-info">
+				<div class="panel-heading clearfix">
+					<div style="float: left;" >
+						<i class="ls-plan-icon"  >&#xe633; </i>
+						<span class="icon_plan_title">预案执行历史</span>
+					</div>
+					<div class="return_action" style="float: right; margin-top: -4px;">
+						<!--<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-left" style="color: #56A2CF;"></span>&nbsp;&nbsp;当前预案执行</button>-->
+						<button type="button" class="btn btn-default my-back-btn"><i class="ls-plan-icon">&#xe612;</i><span class="icon_plan_title">当前预案执行</span></button>
+					</div>
+				</div>
+				<div class="panel-body plan_history_content">
+					<!--<span class="cb-container">-->
+					    <!--<input type="checkbox" id="checkbox" checked>-->
+					    <!--<label for="checkbox" class="cb-label"></label>-->
+					<!--</span>-->
+					<!--<div class="title">-->
+						<!--预案执行历史-->
+					<!--</div>-->
+					<div class="history_list">
+						<!--<div class="history_header_wrap">-->
+							<!--<table class="table table-striped table-bordered history_header">-->
+								<!--<thead>-->
+									<!--<th style="width: 200px;">预案名称</th>-->
+									<!--<th>开始时间</th>-->
+									<!--<th>结束时间</th>-->
+									<!--<th>类型</th>-->
+									<!--<th>主部门</th>-->
+								<!--</thead>-->
+								<!--&lt;!&ndash;宽度一致 假的&ndash;&gt;-->
+								<!--<tbody style="visibility: hidden;" class="false_table">-->
+									<!--<tr class="basic_history_item">-->
+										<!--<td class="name">预案 &nbsp;<span class="glyphicon glyphicon-search" data-id="1" style="float: right"></span></td>-->
+										<!--<td class="start_time">2017-07-12 11:08:24</td>-->
+										<!--<td class="end_time">2017-07-12 11:24:44</td>-->
+										<!--<td class="type">真实</td>-->
+										<!--<td class="main_dept">AOC</td>-->
+									<!--</tr>-->
+								<!--</tbody>-->
+							<!--</table>-->
+
+						<!--</div>-->
+						<div class='history_table_wrap'>
+
+							<table class="table table-bordered history_table">
+								<thead>
+									<th style="width: 25%;">预案名称</th>
+									<th style="width: 20%;">开始时间</th>
+									<th style="width: 20%;">结束时间</th>
+									<th style="width: 15%;">类型</th>
+									<th style="width: 15%;">主部门</th>
+									<th style="width: 5%;">详情</th>
+								</thead>
+								<tbody class="history_list_content">
+									<tr class="basic_history_item">
+										<td class="name">无</td>
+										<td class="start_time">无</td>
+										<td class="end_time">无</td>
+										<td class="type">无</td>
+										<td class="main_dept">无</td>
+										<td class="search_detail"><span class="glyphicon glyphicon-search"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!--<div class="row">-->
+						<!--分页-->
+						<div class="history_paging">
+							<!--<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">-->
+								<ul class="pagination">
+									<li class="paginate_button previous prev disabled" id="dataTable_previous"><a href="#" aria-controls="dataTable">上一页</a></li>
+
+									<li class="paginate_button next" id="dataTable_next"><a href="#" aria-controls="dataTable">下一页</a></li>
+								</ul>
+							<!--</div>-->
+						</div>
+
+					<!--</div>-->
+
+				</div>
+			</div>
+		</div>
+		<div class="history_item" style="display: none;position: relative; z-index: 100;">
+			<div class="tab_header">
+				<!-- 预案执行历史-->
+				<div class="history_return_btn">
+					<!--<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt" style="color: #56A2CF;"></span>&nbsp;&nbsp;预案执行历史</button>-->
+					<button type="button" class="btn btn-default my-back-btn"><i class="ls-plan-icon"  >&#xe612;</i><span class="icon_plan_title">返回预案历史</span></button>
+
+				</div>
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs history_item_nav" role="tablist">
+					<li>
+						<div style="float: left; line-height: 44px; padding-left: 15px;" >
+							<i class="ls-plan-icon"  >&#xe633; </i>
+							<span class="icon_plan_title" style="color: #fff;">预案执行历史</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active home" id="historyHome">
+					<div class="plan_header">
+						<div class="panel panel-default col-sm-2">
+							<div class="panel-body plan_loading_title">
+								预案状态: <span class="plan_state">&nbsp;无</span>
+							</div>
+							<div class="action_time_wrap">
+								<div class="panel-body action_time">
+									启动时长: 无
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-10 basic_info">
+							<div class="plan_name">
+								预案名称: 无
+							</div>
+							<div class="plan_desc">
+								预案描述: 无
+							</div>
+						</div>
+					</div>
+					<div class="plan_content">
+						<div class="plan_list_title">
+							应急预案列表详情 <button class="btn btn-info shrink_item">折叠</button>
+						</div>
+						<div></div>
+					</div>
+
+					<!---->
+					<div class="panel-group plan_lists_wrap" id="accordion2" role="tablist" aria-multiselectable="true">
+						<div class="panel plan_list panel-default plan_list_item">
+							<div class="panel-heading" role="tab" id="headingOne1">
+								<!--<span class="glyphicon glyphicon-plane main_depart_flag"></span>-->
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse" data-parent="#accordion2" href="" aria-expanded="true" aria-controls="collapseOne" style="vertical-align: middle; margin-right: 10px;">
+										<i class="ls-plan-icon">&#xe628;</i><span class="dept_name" style=" color: #337ab7; vertical-align: middle;"></span>
+									</a>
+
+									<span class="glyphicon glyphicon-picture" style="float: right; vertical-align: bottom; margin-top: 3px;"></span>
+								</h4>
+
+							</div>
+							<div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne1">
+								<div class="panel-body" style="padding: 0;">
+									<ul class="list-group plan_task" style="margin-bottom: 0;">
+
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="./assets/lib/jqwindow/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="./assets/lib/jqwindow/jquery-lwd.js"></script>
+
+		<script src="js/ls_plan/c-util.js"></script>
+		<script src="js/ls_plan/c-action.js"></script>
+	</body>
+</html>

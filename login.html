@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--IE Compatibility modes-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--Mobile first-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>ERMS登陆</title>
+     
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.css">
+     
+    <!-- Metis core stylesheet -->
+    <link rel="stylesheet" href="assets/css/main.css">
+     
+     
+    <!-- animate.css stylesheet -->
+    <link rel="stylesheet" href="assets/lib/animate.css/animate.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="login" style="padding: 150px;">
+
+      <div class="form-signin">
+    <div class="text-center">
+    	<!--
+        <img src="assets/img/logo.png" alt="Metis Logo">
+        -->
+        南宁吴圩国际机场应急系统
+    </div>
+    <hr>
+    <div class="tab-content">
+        <div id="login" class="tab-pane active">
+            <form  onsubmit="return false" ><!-- onsubmit="return doLogin(this)"-->
+                <p class="text-muted text-center" id="loginmsg">
+                    请输入用户名和密码
+                </p>
+                <input id="yj_username" type="text" placeholder="用户名" class="form-control top">
+                <input id="yj_password" type="password" placeholder="密码" class="form-control bottom">
+                <div class="checkbox">
+		  <label>
+		    <input type="checkbox"> 记住我
+		  </label>
+		</div>
+                <button class="btn btn-lg btn-primary btn-block" onclick="doLogin()" >登陆</button>
+            </form>
+        </div>        
+    </div>
+    <hr>
+    <!--
+    <div class="text-center">
+        <ul class="list-inline">
+            <li><a class="text-muted" href="#login" data-toggle="tab">Login</a></li>
+            <li><a class="text-muted" href="#forgot" data-toggle="tab">Forgot Password</a></li>
+            <li><a class="text-muted" href="#signup" data-toggle="tab">Signup</a></li>
+        </ul>
+    </div>
+    --》
+  </div>
+
+
+    <!--jQuery -->
+    <script src="assets/lib/jquery/jquery.js"></script>
+                <script src="assets/lib/bootstrap/js/bootstrap.js"></script>  
+
+             <script src="js/myutil.js"></script>
+
+
+    <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                $('.list-inline li > a').click(function() {
+                    var activeForm = $(this).attr('href') + ' > form';
+                    //console.log(activeForm);
+                    $(activeForm).addClass('animated fadeIn');
+                    //set timer to 1 seconds, after that, unload the animate animation
+                    setTimeout(function() {
+                        $(activeForm).removeClass('animated fadeIn');
+                    }, 1000);
+                });
+            });
+        })(jQuery);
+        
+        function doLogin(form)
+        {  
+        	   //document.getElementById("myform").submit();    
+        	getJson('/sys/login',loginBack,'{"username":"'+$("#yj_username").val()+'","password":"'+$("#yj_password").val()+'"}');
+        }
+        
+        function loginBack(data)
+        {
+        	TempCache.setItem("username",$("#yj_username").val());
+        	console.log(data);
+        	//var s = JSON.parse(data);
+			if(data.c.flag==0)
+			{
+				$("#loginmsg").css("color","red");
+				$("#loginmsg").html('用户名或密码错误');
+			}else
+			{
+				window.location.href="index.html"; 
+			} 
+			hideLoding();
+        		  //document.myform.submit();
+        }
+    </script>
+</body>
+
+</html>

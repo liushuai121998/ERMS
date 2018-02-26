@@ -1,0 +1,318 @@
+.nav-tabs > li > a
+{
+	color: #ccc ;
+	border-radius:0px; 
+}
+
+ .plan_nav, .history_item_nav
+ {
+ 	height: 44px;
+ 	color: #ffffff;
+ }
+ 
+
+.nav-tabs
+{
+	border-bottom:2px solid #FF8547;
+}
+
+.panel-info
+{
+	border-color:#ffffff;
+}
+
+.panel-info > .panel-heading
+{
+	background-color:#4e4e4e;
+	border-color:#ffffff;
+	color: #ffffff;
+}
+
+.nav > li > a:hover, .nav > li > a:focus
+{
+	background: #FF8547;
+}
+
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus
+{
+	background: #FF8547;  
+	color: #ffffff;
+}
+
+.my-back-btn
+{
+	padding:1px 6px;
+	border-radius:0px;
+}
+
+
+.history_btn, .history_return_btn{
+    float: right;
+    margin-top: 5px;
+    margin-right: 15px;
+}
+.icon_plan_title{
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.tab-content {
+    padding: 20px 50px 0;
+}
+/*基础信息的样式*/
+.basic_info {
+    padding: 20px 40px 20px;
+}
+.plan_name, .plan_desc{
+    padding: 20px 20px 0;
+}
+.plan_name{
+    padding-top: 0;
+}
+.plan_header:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.plan_header > .panel-default {
+    border: 1px dashed #FACF87;
+    color: #EB9302;
+}
+
+.plan_loading_title {
+    border-bottom: 1px dashed #FACF87;
+}
+
+/*预案列表内容*/
+.plan_lists_wrap {
+    margin-top: 15px;
+    /*overflow-y: scroll;*/
+    overflow-y: auto;
+}
+
+.plan_list_title {
+    padding: 20px 0 5px;
+    border-bottom: 1px solid #5AB6DF;
+    color: #5AB6DF;
+}
+.plan_list .main_depart_flag {
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    color: #EB9302;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.plan_lists_wrap .plan_list + .panel{
+    margin: 0;
+}
+.plan_list .plan_task li {
+    border-right: none;
+    border-left: none;
+}
+
+.plan_list .panel-title a {
+    text-decoration: none;
+}
+
+.plan_list .panel-heading {
+    padding-left: 6%;
+    padding-right: 4%;
+    position: relative;
+}
+
+.plan_task {
+    /*max-height: 200px;*/
+    /*overflow-y: scroll;*/
+}
+
+.plan_task .list-group-item {
+    padding-left: 6%;
+    padding-right: 4%;
+}
+
+.glyphicon-picture {
+    cursor: pointer;
+}
+
+/*success——btn*/
+.success_btn{
+    text-align: center;
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    /*margin-bottom: 20px;*/
+}
+.success_btn .btn {
+
+    padding: 5px 40px;
+
+}
+
+/*预案历史记录*/
+.plan_history {
+    height: 100%;
+}
+.plan_history .panel-info {
+    height: 100%;
+}
+.plan_history .panel-heading {
+    height: 44px;
+    border-bottom:2px solid #FF8547;
+}
+
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.plan_history_content {
+    padding: 10px;
+}
+.plan_history_content .title {
+    padding: 10px 0 5px;
+    border-bottom: 1px solid #5AB6DF;
+}
+.history_list {
+    padding: 30px 40px 0;
+}
+.history_list .table td, .history_list .table th {
+    text-align: center;
+    color: #000;
+}
+.history_list .table th {
+    background: linear-gradient(to bottom, #ffffff 0%,#F1F1F1 100%);
+}
+
+/*缩略图显示的大小*/
+.show_pic_wrap {
+    /*margin-top: 10%;*/
+    margin-top: 200px;
+    width: 50%;
+    height: 50%;
+}
+
+.show_pic_wrap .modal-body {
+    width: 100%;
+    height: 100%;
+}
+
+.show_lg_pic {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    /*border: none;*/
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+#myDialog {
+    margin: 0 !important;
+}
+
+/*显示更新的时间*/
+.show_update_time {
+    float: right;
+}
+
+.glyphicon-search {
+    cursor: pointer;
+}
+
+.history_list .table {
+    margin-bottom: 0;
+}
+
+.history_list{
+    /*max-height: 500px;*/
+    /*overflow-y: scroll;*/
+    /*padding: 0;*/
+}
+.history_header {
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: 222;
+}
+
+.history_header_wrap {
+    overflow-y: auto;
+}
+
+.history_table_wrap {
+    /*max-height: 500px;*/
+    /*overflow-y: scroll;*/
+    /*position: relative;*/
+    /*top: -49px;*/
+    /*border-bottom: 1px solid red;*/
+}
+@media screen and (max-height: 900px){
+
+    .history_table_wrap {
+        height: 500px;
+        overflow-y: auto;
+    }
+
+}
+
+/*特殊处理*/
+.history_list_content tr .glyphicon-search {
+    position: relative;
+    z-index: 1000;
+}
+
+.plan_nav, .history_item_nav {
+    background: #4e4e4e;
+     /*height: 55px;
+   padding: 10px 0;*/
+    line-height: 34px;
+}
+ 
+.nav-tabs > li {
+    float: left;
+    height: 100%;
+}
+.nav-tabs > li > a {
+    height: 44px;
+}
+
+
+/*样式优化*/
+
+/*应急启动 任务内容*/
+.task_content, .task_num {
+
+    position: relative;
+    top: -4px;
+}
+.plan_list .task_num {
+    margin-left: 2%;
+    margin-right: 3%;
+}
+
+
+/* 预案执行历史列表分页*/
+.history_paging .pagination {
+    position: absolute;
+    right: 0;
+    bottom: 1%;
+    margin: 0 50px;
+}
+
+.history_table_wrap .search_detail .glyphicon-search{
+    color: #5AB6DF ;
+}
+
+/*收缩按钮*/
+.shrink_item {
+    padding: 2px 5px;
+    margin-left: 4px;
+}
+
+
+
+

@@ -1,0 +1,658 @@
+<link rel="stylesheet" href="./assets/lib/bootstrapValidator/bootstrapValidator.css">
+<link rel="stylesheet" href="./assets/lib/bootstrapTable/bootstrap-table.css">
+
+<style>
+    #myModal-user .modal-content{
+        margin-top: 100px;
+        background: #fff;
+        border-radius:0;
+        color: #333;
+    }
+    #myModal-user .modal-header {
+        background: #444444;
+        color: #fff;
+        text-align: center;
+        padding: 8px;
+    }
+    .table td, .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+        padding: 8px !important;
+        font-size: 14px;
+    }
+    .table>thead>tr>th>div {
+        padding: 0 !important;
+    }
+    .pagination-info {
+        display: none !important;
+    }
+    /*.page-list {*/
+        /*display: none !important;*/
+    /*}*/
+</style>
+<!-- 用户管理弹框 -->
+<div id="myModal-user" class="modal fade"  tabindex="-1" role="dialog "  >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModal-user-title">系统消息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="myuserform" class="form-horizontal" role="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_Name">*姓名</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="ds_name" name="dsName" type="text" placeholder="人员姓名" autocomplete="off" />
+                            </div>
+                            <div class="col-sm-5 name_error">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_loginName">*用户名</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="ds_loginName" type="text" placeholder="登陆账号" name="loginName" autocomplete="off" />
+                            </div>
+                            <div class="col-sm-5 login_name_error">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_workNum">*工号</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="ds_workNum" type="text" placeholder="工号" name="workNum" autocomplete="off" />
+                            </div>
+                            <div class="col-sm-5 work_num_error">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_deptId">*部门</label>
+                            <div class="col-sm-5">
+                                <select id="ds_deptId" class="form-control" name="dept">
+
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-2 control-label" for="ds_roleId">*用户角色</label>-->
+                            <!--<div class="col-sm-5">-->
+                                <!--<select   id="ds_roleId" class="form-control"  >-->
+
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_cardNum">身份证</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="ds_cardNum" type="text" placeholder="身份证" name="cardNum" autocomplete="off" />
+                            </div>
+                            <div class="col-sm-5 card_num_error"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_telphone">*手机号</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="ds_telphone" type="text" placeholder="手机号" name="telphone" autocomplete="off" />
+                            </div>
+                            <div class="col-sm-5 telphone_error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_email">邮箱</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="ds_email" name="email" type="text" placeholder="邮箱" autocomplete="off" />
+                            </div>
+                            <div class="col-sm-5 email_error"></div>
+                        </div>
+                    </fieldset>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <span id="f_msg" style="margin-right: 20px;"></span>
+                <input type="submit" class="btn  btn-primary saveBtn" form="myuserform" value="保存">
+                <button type="button" class="btn  btn-primary"  onclick="docloseUser()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel-body">
+    <div id="toolbar" class="btn-group">
+        <button id="btn_add" type="button" class="btn btn-default btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+        </button>
+        <button id="btn_delete" type="button" class="btn btn-default btn-danger">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+        </button>
+    </div>
+    <table id="myTable">
+    </table>
+</div>
+
+<script src="./assets/lib/bootstrapValidator/bootstrapValidator.js"></script>
+<script src="./assets/lib/bootstrapTable/bootstrap-table.js"></script>
+<script src="./assets/lib/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+
+<script>
+    $(function () {
+
+        // 验证规则
+        $('#myuserform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                dsName: {
+                    // 错误提示信息的位置
+                    container: '.name_error',
+                    message: '姓名验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '姓名不能为空'
+                        },
+                        stringLength: {
+                            min: 2,
+                            max: 16,
+                            message: '姓名规则2-16位字符'
+                        },
+                        regexp: {
+                            regexp: /^[\u4e00-\u9fa5a-zA-Z]+$/,
+                            message: '请输入中文和字母'
+                        }
+                    }
+                },
+                email: {
+                    container: '.email_error',
+                    validators: {
+                        regexp: {
+                            regexp: /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+                            message: '邮箱不合法'
+                        }
+                    }
+                },
+                loginName: {
+                    container: '.login_name_error',
+                    message: '用户名验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 16,
+                            message: '用户名长度6-16位字符'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z][a-zA-Z0-9]+$/,
+                            message: '字母或数字组合, 且数字不在首位'
+                        }
+                    }
+                },
+                workNum: {
+                    container: '.work_num_error',
+                    message: '工号验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '工号不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 16,
+                            message: '工号长度6-16位字符'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9]+$/,
+                            message: '字母或数字组合'
+                        }
+                    }
+                },
+                // 手机号
+                telphone: {
+                    container: '.telphone_error',
+                    message: '手机号验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '手机号不能为空'
+                        },
+                        stringLength: {
+                            min: 11,
+                            max: 11,
+                            message: '手机号长度为11位字符'
+                        },
+                        regexp: {
+                            regexp: /^1[34578]\d{9}$/,
+                            message: '手机号不合法'
+                        }
+                    }
+                },
+                // 身份证
+                cardNum: {
+                    container: '.card_num_error',
+                    message: '身份证验证失败',
+                    validators: {
+                        stringLenght: {
+                            // 15位 或18位
+                        },
+                        regexp: {
+                            regexp: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}[0-9Xx]$)/,
+                            message: '身份证不合法'
+                        }
+                    }
+                },
+                dept: {
+                    message: '部门验证失败',
+                    validators: {
+                        callback: function (value, validator) {
+
+                        }
+                    }
+                }
+            }
+        })
+
+
+        //部门数据
+        var deptMap = new Object();
+        getJson('/config/depts', function (data) {
+            if(data.c.flag === 1) {
+                var selectStr = " <option value='-1'>选择部门</option>";
+                //获取部门基础数据以后，加载表格数据 ---部门基础数据
+                for(var i=0;i<data.c.depts.length;i++)
+                {
+                    deptMap[data.c.depts[i].id] = data.c.depts[i].name;
+                    selectStr += "<option value='"+data.c.depts[i].id+"'>"+data.c.depts[i].name+"</option>";
+                }
+                $("#ds_deptId").html(selectStr);
+            }
+        }, '')
+
+
+
+
+        var selectdeptId = "";
+        //选择部门
+        $('#ds_deptId').change(function(e){
+            //console.log($(":selected","#dept-select").attr("value"));
+            selectdeptId = $(":selected","#ds_deptId").attr("value");
+        })
+
+        // 新增
+        $("#btn_add").click(function(e){
+            $('#myModal-user-title').text("新增用户");
+            $("#myModal-user").modal({backdrop: false, show: true});
+            $('#myModal-user .saveBtn').attr('data-flag', 'add')
+        });
+
+        // 删除
+        $("#btn_delete").click(function(e){
+            var a= $("#myTable").bootstrapTable('getSelections');   // getSelections 返回选中的行
+            console.log(a);
+            if(a.length <= 0){
+                showMsg("请勾选需要删除的数据...");
+            }else{
+                //			getJson("/sys/userdel",sendBack,"{'id':"+this.getAttribute("data")+"}");
+                Ewin.confirm({message: '确定删除吗?'}).on(function (isConfirm) {
+                    if(isConfirm) {
+                        for(var i = 0;i<a.length;i++)
+                        {
+                            $.ajax({
+                                url: serviceUrl + "/user/userdel",
+                                data: "{'id':"+a[i].id+"}" ,
+                                async: false,
+                                type: "post",
+                                success: function(dataJson) {
+                                    showMsg("删除成功");
+                                    $("#myTable").bootstrapTable('removeByUniqueId', a[i].id);
+                                },
+                                error: function() {
+                                    //hideLoading();
+                                }
+                            });
+                        }
+                    }
+                })
+            }
+        });
+
+        initShow()
+        // 表格数据
+        function initShow () {
+            var T_height = $(window).height() - 160;
+            $('#myTable').bootstrapTable({
+                //url: '/Home/GetDepartment',         //请求后台的URL（*）
+                //method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                locale:"zh-US" ,                    //表格汉化
+                //queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                paginationLoop: false,              // 	设置为 true 启用分页条无限循环的功能。
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 25,                       //每页的记录行数（*）
+                pageList: [25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: false,                 //设置为 true启用 全匹配搜索，否则为模糊搜索
+                showColumns: false,                  //是否显示所有的列
+                showRefresh: false,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: false,                //是否启用点击选中行
+                height: T_height,                        //行高，如果没有设置height属性，表格自动根据记录条数计算表格高度
+                uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+
+                columns: [{
+                    checkbox: true,
+                    width: '30'
+                }, {
+                    field: 'Number',
+                    title: '序号',
+                    formatter: function (value, row, index) {
+                        return index + 1;
+                    },
+                    width: '50'
+                }, {
+                    field: 'loginName',
+                    title: '用户名',
+                    width: '10%'
+                }, {
+                    field: 'name',
+                    title: '姓名',
+                    width: '10%'
+                }, {
+                    field: 'workNum',
+                    title: '工号',
+                    width: '20%'
+                },
+                    {
+                        field: 'deptId',
+                        title: '部门',
+                        width: '10%',
+                        formatter: deptFormatter
+                    },  {
+                        field: 'addTime',
+                        title: '创建时间',
+                        width: '20%'
+                    } ,   {
+                        field: 'lastTime',
+                        title: '最后登录时间',
+                        width: '20%'
+                    } ,
+                    {
+                        field: 'operate',
+                        title: '操作',
+                        align: 'center',
+                        width: '10%',
+                        formatter: operateFormatter
+                    }]
+            });
+
+            $(window).resize(function () {
+                $('#myTable').bootstrapTable('resetView');
+            });
+
+        }
+
+        //  部门
+        function deptFormatter(value, row, index)
+        {
+            return deptMap[row.deptId];
+        }
+
+        // 操作
+        function operateFormatter (value, row, index) {
+            return [
+                ' <i data-id="'+row.id+'" class="key-icon resetkey">&#xe76f;</i>',
+                ' <span   data-id="'+row.id+'" data-index="'+index+'"  class="edit_btn glyphicon glyphicon-pencil" aria-hidden="true" style="cursor: pointer;"></span>',
+                ' <span   data-id="'+row.id+'" data-index="'+index+'"  class="delete_btn glyphicon glyphicon-remove" aria-hidden="true" style="cursor: pointer;"></span>'
+            ].join('');
+        }
+
+
+        var edit_user_index = ""    // 编辑用户的index
+
+        // 修改   删除  重置密码
+        var manageOperate = {
+            init: function () {
+                this.bindEvent()
+            },
+            bindEvent: function () {
+                var that = this
+                $('body').on('click', '.edit_btn', this.update)  // 事件委托
+                 $('body').on('click', '.delete_btn', function (ev) {
+                     Ewin.confirm({message: '确定删除吗?'}).on(function (isConfirm) {
+                         if(isConfirm) {
+                             that.deleteItem.call(ev.target)
+                         }
+                     })
+                 })
+                $('body').on('click', '.resetkey', function (ev) {
+                    Ewin.confirm({message: '确定重置密码吗?'}).on(function (isConfirm) {
+                        if(isConfirm) {
+                            that.resetPassword.call(ev.target)
+                        }
+                    })
+                })
+            },
+            update: function (ev) {
+
+                var editId = Number($(this).attr('data-id'))
+                for(var i = 0;i < users.length;i++)
+                {
+                    if(users[i].id === editId)
+                    {
+                        edit_user_index = i
+                        formser(users[i]);
+                        break;
+                    }
+                }
+//
+
+                $('#myModal-user-title').text("用户编辑");
+
+                $("#myModal-user").modal({backdrop: false, show: true});
+
+                $('#myModal-user .saveBtn').attr({
+                    'data-updateId': editId,
+                    'data-index': $(this).attr('data-index'),
+                    'data-flag': 'update'
+                })
+
+                // 匹配 修改
+                function formser(obj) {
+                    var form = document.getElementById("myuserform");
+                    for (var i = 0; i < form.elements.length; i++) {
+                        var feled = form.elements[i];
+                        switch (feled.type) {
+                            case undefined:
+                                break;
+                            case 'text':
+                                $("#" + feled.id).val(obj[feled.id.replace("ds_", "")]);
+                                break;
+                            case 'select-one':
+                                $("#" + feled.id).find("option[value='" + obj[feled.id.replace("ds_", "")] + "']").attr("selected", true);
+                                break;
+                        }
+                    }
+                }
+            },
+            deleteItem: function () {
+
+                // 根据用户的id删除
+                var delId = Number($(this).attr('data-id'))
+                var param = {id: delId}
+                getJson('user/userdel', function (data) {
+                    if(data.c.flag === 1) {
+
+                        // 删除表格中的数据
+                        $('#myTable').bootstrapTable('removeByUniqueId', delId)
+
+                        showMsg('删除成功')
+                    }
+                }, JSON.stringify(param))
+
+            },
+            resetPassword: function () {
+                // 重置密码
+                getJson('user/passwordinit', function (data) {
+
+                    if(data.c.flag === 1) {
+                        showMsg('重置密码成功')
+                    }
+
+                }, '{"id": '+Number($(this).attr("data-id"))+'}')
+            }
+        }
+        manageOperate.init()
+
+        // 初始化获取用户的数据
+        getJson('user/userlist', function (data) {
+            console.log(data, 'user data')
+            if(data.c.flag === 1) {
+                window.users = data.c.users
+                if(data.c.flag === 1) {
+                    $('#myTable').bootstrapTable('load', users)
+                }
+            } else {
+                if(data.c.flag === 0 && data.c.errorCode === '004') {
+                    window.users = []
+                }
+            }
+        }, '')
+
+        // 保存
+        $('.saveBtn').click(function () {
+            // 进行表单验证
+            $('#myuserform').data('bootstrapValidator').validate();
+
+            var temp = $(this).attr('data-flag')
+            // var flag = $(formName).data(“bootstrapValidator”).isValid();     // 获取当前表单验证的状态
+            var flag = $('#myuserform').data("bootstrapValidator").isValid();
+
+            // 修改状态
+            var editId = Number($(this).attr('data-updateId'))
+            var editIndex = Number($(this).attr('data-index'))
+            if(flag) {
+                save[temp] && save[temp](editId, editIndex)
+            }
+        })
+
+        // 新增报存 修改报存
+        var save = {
+            getParam: function (editId) {
+                var param = {
+                    loginName: $('#ds_loginName').val(),
+                    workNum: $('#ds_workNum').val(),
+                    cardNum: $('#ds_cardNum').val(),
+                    name: $('#ds_name').val(),
+                    telphone: $('#ds_telphone').val(),
+                    email: $('#ds_email').val(),
+                    deptId: selectdeptId    // 部门id
+                }
+
+                if(editId) {
+                    param.id = editId
+                }
+                return param
+            },
+            add: function () {
+                // {"loginName":"yh","workNum":"010101010","cardMum":"10201200120","name":"大胖子","telphone":"18901010101","email":"hyan@topsci.com"}
+                // 新增发送ajax请求
+                var param = this.getParam()
+                getJson('/user/useradd', function (data) {
+                    if(data.c.flag === 0 && data.c.errorCode === '005') {
+                        $('#f_msg').hide().html('<label class="label label-danger">用户名重复</label>').show(300);
+                        return
+                    }
+                    if(data.c.flag === 1) {
+                        $('#f_msg').hide()
+                        param.id = data.c.id
+                        param.addTime = data.c.addTime
+                        // 添加数据到表格在现有数据之后。
+                        users.push(param)
+
+                        $('#myTable').bootstrapTable('load', users)
+
+                        $('#myModal-user').modal('hide')
+
+                        // 清空数据
+                        clearData()
+                        // 重置表单验证规则
+                        $('#myuserform').data("bootstrapValidator").resetForm();
+                    }
+                }, JSON.stringify(param))
+
+            },
+            update: function (editId, editIndex) {
+                // 修改成功发送ajax请求
+                var param = this.getParam(editId)
+                getJson('/user/userupdate', function (data) {
+                    console.log(data)
+                    if(data.c.flag === 1) {
+                        for(var i in param) {
+                            users[edit_user_index][i] = param[i]
+                        }
+                        // 更新指定的行
+                        $('#myTable').bootstrapTable('updateRow', {
+                            index: editIndex,
+                            row: param
+                        })
+
+                        $('#f_msg').hide()
+
+                        // 清空数据
+                        clearData()
+                        $('#myModal-user').modal('hide')
+
+                        // 重置表单验证规则
+                        $('#myuserform').data("bootstrapValidator").resetForm();
+
+                        showMsg('修改用户成功')
+                    } else {
+
+                        if(data.c.errorCode === '005') {
+                            $('#f_msg').hide().html('<label class="label label-danger">用户名重复</label>').show(300);
+                        }
+
+                    }
+                }, JSON.stringify(param))
+
+            }
+        }
+
+    })
+
+    function clearData () {
+        $('#f_msg').hide()
+        $("#ds_loginName").val('');
+        $("#ds_workNum").val('');
+        $("#ds_cardNum").val('');
+        $("#ds_name").val('');
+        $("#ds_telphone").val('');
+        $("#ds_email").val('');
+        $($('#ds_deptId')[0].options[$('#ds_deptId')[0].selectedIndex]).prop('selected', false)
+    }
+    /**
+     * 取消
+     */
+    function docloseUser() {
+        clearData()
+        $('#myModal-user').modal('hide');
+
+        // 重置表单验证规则
+        $('#myuserform').data("bootstrapValidator").resetForm();
+    }
+
+
+</script>
